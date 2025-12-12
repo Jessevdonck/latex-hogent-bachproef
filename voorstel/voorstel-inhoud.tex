@@ -15,70 +15,73 @@
 \section{Inleiding}%
 \label{sec:inleiding}
 
-Waarover zal je bachelorproef gaan? Introduceer het thema en zorg dat volgende zaken zeker duidelijk aanwezig zijn:
+Het opleiden van verpleegkundigen vereist een hoog niveau van competentie in essentiële medische handelingen, waarbij de veiligheid en het welzijn van de patiënt centraal staan. Binnen het zorgonderwijs vertrouwt men traditioneel op fysieke simulatielabs, maar deze aanpak wordt geconfronteerd met significante uitdagingen. De labs zijn duur in aanschaf en onderhoud, en de beperkte beschikbaarheid resulteert in ontoereikende toegang en strikte planning voor studenten \autocite{Pottle2019}. Traditionele methoden bieden bovendien vaak een onvoldoende realistische context om complexe besluitvorming effectief te trainen en missen efficiënte mechanismen voor de geautomatiseerde validatie van competenties met het oog op permanente educatie \autocite{Radianti2020}.
 
+Extended Reality(XR) biedt een potentieel disruptieve oplossing voor deze problemen. XR-simulaties kunnen een veilige, herhaalbare en hoogst realistische digitale omgeving creëren die de fysieke beperkingen van het traditionele lab omzeilt. Dit maakt onbeperkt oefenen met directe, datagedreven feedback mogelijk. Dit project richt zich op de hogeschool HOGENT met de noodzaak om de vaardigheidstraining te moderniseren en te schalen, inclusief de validatie voor CME-credits (\textit{Continuing Medical Education}).
+
+De hoofddoelstelling van dit toegepaste onderzoek is de ontwikkeling en validering van een Proof of Concept van een XR-trainingsapplicatie op de Meta Quest 3 voor één kritische verpleegkundige handeling. Dit project beoogt de technologische en didactische haalbaarheid aan te tonen van een dergelijk platform. De Proof of Concept zal dienen als gevalideerd bewijs dat XR een schaalbaar en didactisch hoogwaardig alternatief is voor traditionele simulatie, waarbij specifiek wordt aangetoond dat de prestatie-evaluatie voldoet aan de eisen voor CME-creditering.
+
+Om deze doelstelling te bereiken, zullen in deze bachelorproef de volgende onderzoeksvragen worden uitgewerkt:
 \begin{itemize}
-  \item kaderen thema
-  \item de doelgroep
-  \item de probleemstelling en (centrale) onderzoeksvraag
-  \item de onderzoeksdoelstelling
+    \item Hoe kan een XR-toepassing op Meta Quest 3 realistische medische simulaties ondersteunen die voldoen aan didactische vereisten voor verpleegkunde?
+    \item Wat zijn de minimale technische en gebruiksvoorwaarden om een schaalbare en uitbreidbare XR-simulatieomgeving te ontwikkelen?
+    \item In welke mate ervaren gebruikers (studenten en docenten) de XR-ervaring als realistisch, nuttig en gebruiksvriendelijk?
+    \item Welke kwaliteitscriteria en erkenningskaders gelden voor CME-credits in de zorgsector, en hoe kan XR daarin geïntegreerd worden?
+    \item Wat zijn de technische en organisatorische stappen om de POC door te ontwikkelen naar een duurzame 'HOGENT XR Academy'?
 \end{itemize}
-
-Denk er aan: een typische bachelorproef is \textit{toegepast onderzoek}, wat betekent dat je start vanuit een concrete probleemsituatie in bedrijfscontext, een \textbf{casus}. Het is belangrijk om je onderwerp goed af te bakenen: je gaat voor die \textit{ene specifieke probleemsituatie} op zoek naar een goede oplossing, op basis van de huidige kennis in het vakgebied.
-
-De doelgroep moet ook concreet en duidelijk zijn, dus geen algemene of vaag gedefinieerde groepen zoals \emph{bedrijven}, \emph{developers}, \emph{Vlamingen}, enz. Je richt je in elk geval op it-professionals, een bachelorproef is geen populariserende tekst. Eén specifiek bedrijf (die te maken hebben met een concrete probleemsituatie) is dus beter dan \emph{bedrijven} in het algemeen.
-
-Formuleer duidelijk de onderzoeksvraag! De begeleiders lezen nog steeds te veel voorstellen waarin we geen onderzoeksvraag terugvinden.
-
-Schrijf ook iets over de doelstelling. Wat zie je als het concrete eindresultaat van je onderzoek, naast de uitgeschreven scriptie? Is het een proof-of-concept, een rapport met aanbevelingen, \ldots Met welk eindresultaat kan je je bachelorproef als een succes beschouwen?
-
+Dit onderzoek zal, door middel van de ontwikkeling van de Proof of Concept en een gedetailleerde architectuuranalyse, een gefundeerde basis bieden voor de integratie van XR als een volwaardig en gevalideerd onderdeel van het zorgonderwijs.
 %---------- Stand van zaken ---------------------------------------------------
 
-\section{Literatuurstudie}%
+\section{Literatuurstudie en State-of-the-Art}%
 \label{sec:literatuurstudie}
 
-Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)?
+In deze sectie wordt de huidige stand van zaken (\textit{state-of-the-art}) rond de toepassing van Extended Reality (XR) in het zorgonderwijs besproken. De focus ligt op de didactische en technologische context waarbinnen de Proof of Concept (POC) van deze bachelorproef zal worden ontwikkeld.
 
-Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek?
+\subsection{Beperkingen van Traditionele Simulatie}
 
-Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom.
+De traditionele methode voor het aanleren en valideren van verpleegkundige vaardigheden berust op fysieke simulatielabs. Hoewel deze labs essentieel zijn voor de basisvorming, zijn ze tegelijkertijd duur in aanschaf en onderhoud, wat leidt tot logistieke complexiteit en beperkte oefentijd per student \autocite{Pottle2019}. Een cruciaal tekort is dat deze omgevingen vaak een onvoldoende realistische contextuele druk creëren, waardoor de ontwikkeling van klinische besluitvorming en kritisch denken niet optimaal getraind wordt \autocite{Radianti2020}. De noodzaak aan realistische, veilige en herhaalbare omgevingen, zonder risico voor patiëntveiligheid, is de drijvende kracht achter de adoptie van nieuwe technologieën in het onderwijs \autocite{Lampropoulos2025}.
 
-Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron.
+\subsection{Didactische en Klinische Potentie van Extended Reality (XR)}
 
-Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
+Extended Reality (XR), waaronder Virtual Reality (VR), stelt gebruikers in staat om een virtuele aanwezigheid te ervaren in computergegenereerde omgevingen. Recent onderzoek bevestigt dat VR een effectief educatief hulpmiddel is dat zowel studenten als zorgprofessionals kan ondersteunen \autocite{Lampropoulos2025}. De immersieve, realistische en veilige omgevingen die XR creëert, stellen studenten in staat om hun kennis, praktijkvaardigheden en besluitvorming te verbeteren zonder patiëntveiligheid in gevaar te brengen \autocite{Lampropoulos2025}. Studies tonen een positieve invloed van VR-training aan op klinische vaardigheden, procedurele training en kennisretentie, vergelijkbaar met, en soms superieur aan, traditionele methoden \autocite{Kyaw2019}. Naast technische vaardigheden, draagt VR ook positief bij aan de affectieve domeinen, zoals het vergroten van empathie en gedragsmatig inzicht bij studenten \autocite{Lampropoulos2025}. 
 
-% Voor literatuurverwijzingen zijn er twee belangrijke commando's:
-% \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
-%   geen onderdeel is van de zin.
-% \textcite{KEY} => Auteur (jaartal)  Gebruik dit als de auteursnaam wel een
-%   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
-%   ...'')
+\subsection{Technologische Implementatie en Schaalbaarheid}
 
-Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
+De brede adoptie van immersieve simulaties werd in het verleden belemmerd door hoge hardwarekosten. Met de komst van stand-alone headsets, zoals de Meta Quest 3, is de implementatiedrempel voor het hoger onderwijs aanzienlijk verlaagd \autocite{Pottle2019}. Dit platform levert de nodige balans tussen grafische capaciteit en draagbaarheid om een realistische handeling te simuleren en tegelijkertijd schaalbare adoptie binnen een instelling als HOGENT mogelijk te maken. Voor de doorontwikkeling van de POC naar een 'XR Academy' is een robuuste en modulaire technische architectuur vereist \autocite{Radianti2020}. Deze architectuur moet flexibel zijn voor de integratie van nieuwe scenario's en de gelijktijdige verwerking van de prestatiedata van meerdere gebruikers, wat een direct raakvlak vormt met de technische onderzoeksvragen van deze bachelorproef \autocite{Hung2024}.
 
+\subsection{Validatie en Erkenning (CME-credits)}
+
+Voor de duurzame inzet van het XR-platform is de formele erkenning van de training door de toekenning van Continuing Medical Education (CME) credits cruciaal. Dit vereist dat de evaluatiemethoden voldoen aan strenge, objectieve kwaliteitsnormen. Dit betekent dat de XR-applicatie niet alleen de handeling realistisch moet simuleren, maar ook betrouwbare, kwantificeerbare data moet verzamelen over de prestaties van de gebruiker (fouten, stappen, timing) \autocite{Radianti2020}. Onderzoek naar de ontwikkeling en evaluatie van VR-programma's voor specifieke verpleegkundige training benadrukt de noodzaak van een grondige evaluatie van de haalbaarheid en de impact op de leerresultaten \autocite{Hung2024}. Dit onderzoek richt zich op het vertalen van deze kwaliteitscriteria naar de technische en pedagogische functionaliteiten van de Proof of Concept.
+
+\subsection{Positionering van het Onderzoek}
+
+Ondanks de sterke bevestiging van de didactische effectiviteit van XR \autocite{Lampropoulos2025}, is er een tekortkoming in de literatuur met betrekking tot de gecombineerde en praktische implementatie van een kostenefficiënt, stand-alone XR-platform (Meta Quest 3), in combinatie met een schaalbare technische architectuur voor een brede curriculaire toepassing, en de specifieke vereisten voor CME-erkenning. Dit onderzoek pakt deze kloof aan door een toegepaste Proof of Concept te ontwikkelen die dient als gevalideerde blauwdruk voor toekomstige institutionele implementatie binnen het zorgonderwijs van HOGENT.
 %---------- Methodologie ------------------------------------------------------
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Hier beschrijf je hoe je van plan bent het onderzoek te voeren. Welke onderzoekstechniek ga je toepassen om elk van je onderzoeksvragen te beantwoorden? Gebruik je hiervoor literatuurstudie, interviews met belanghebbenden (bv.~voor requirements-analyse), experimenten, simulaties, vergelijkende studie, risico-analyse, PoC, \ldots?
+Dit toegepaste onderzoek volgt in grote lijnen de stappen van de Design Science Research-methode. De kern ligt in het ontwikkelen en testen van een bruikbaar product, de Proof of Concept, als oplossing voor de opleidingsproblemen in de zorg. Het onderzoek is verdeeld in vier opeenvolgende fasen, die elk concrete resultaten opleveren en een deel van de onderzoeksvragen beantwoorden.
 
-Valt je onderwerp onder één van de typische soorten bachelorproeven die besproken zijn in de lessen Research Methods (bv.\ vergelijkende studie of risico-analyse)? Zorg er dan ook voor dat we duidelijk de verschillende stappen terug vinden die we verwachten in dit soort onderzoek!
+In de eerste fase, Vereisten en Huidige Kennis, wordt de basis van het onderzoek gelegd. Het doel is om alle technische, didactische en wettelijke eisen in kaart te brengen waaraan de XR SkillSim moet voldoen voor HOGENT en de CME-erkenning. Hiervoor wordt de literatuurstudie verdiept, waarbij we ons focussen op de specifieke onderwijskundige eisen voor verpleegkundige simulatie en de technische mogelijkheden en beperkingen van het Meta Quest 3-platform. Daarnaast voeren we gerichte gesprekken met docenten Verpleegkunde en experts in CME-accreditatie om de exacte kwaliteitscriteria en erkenningskaders vast te stellen. Het resultaat van deze fase is een gedetailleerd Requirements Document, inclusief een Technisch Selectierapport, dat dient als blauwdruk voor de ontwikkeling.
 
-Vermijd onderzoekstechnieken die geen objectieve, meetbare resultaten kunnen opleveren. Enquêtes, bijvoorbeeld, zijn voor een bachelorproef informatica meestal \textbf{niet geschikt}. De antwoorden zijn eerder meningen dan feiten en in de praktijk blijkt het ook bijzonder moeilijk om voldoende respondenten te vinden. Studenten die een enquête willen voeren, hebben meestal ook geen goede definitie van de populatie, waardoor ook niet kan aangetoond worden dat eventuele resultaten representatief zijn.
+De tweede fase, Ontwikkeling en Vergelijking, is het technische zwaartepunt van het onderzoek. De XR-applicatie wordt iteratief ontwikkeld, gericht op de gekozen verpleegkundige handeling. De ontwikkeling omvat de inbouw van een objectief meetsysteem (registratie van prestaties, fouten en tijd) dat voldoet aan de CME-criteria. Tegelijkertijd wordt er een Technische Architectuurstudie uit om de gekozen opbouw te analyseren en te ontwerpen. Hierbij worden keuzes over de backend, de database voor prestatiedata en de mogelijkheden om het systeem in de toekomst uit te breiden met meer scenario's en meerdere gebruikers gemaakt. Dit beantwoordt de vraag naar de minimale technische voorwaarden voor schaalbaarheid. Het concrete eindproduct is een Functionele XR Proof of Concept op de Meta Quest 3, inclusief de bijbehorende backend. De XR-applicatie wordt ontwikkeld met de Unity 3D game engine, in combinatie met de C# programmeertaal.
 
-Uit dit onderdeel moet duidelijk naar voor komen dat je bachelorproef ook technisch voldoen\-de diepgang zal bevatten. Het zou niet kloppen als een bachelorproef informatica ook door bv.\ een student marketing zou kunnen uitgevoerd worden.
+Vervolgens richt de derde fase, Validatie, zich op het testen van de Proof of Concept in de praktijk. De Proof of Concept wordt gevalideerd via een kleinschalige pilottest of focusgroepen met de doelgroep van studenten en docenten Verpleegkunde van HOGENT. De validatie omvat het meten van hoe realistisch de ervaring is, de mate van immersie en de beoordeling van de onderwijskundige meerwaarde door docenten. Via dit gebruikersonderzoek wordt vastgesteld in welke mate de gebruikers de XR-ervaring als nuttig en gebruiksvriendelijk ervaren.
 
-Je beschrijft ook al welke tools (hardware, software, diensten, \ldots) je denkt hiervoor te gebruiken of te ontwikkelen.
+De afsluitende vierde fase, Strategische Roadmap, vertaalt de resultaten naar een toekomstplan. Op basis van de architectuuranalyse en de resultaten van de validatietest wordt een Roadmap opgesteld. Dit document beschrijft de technische en organisatorische stappen voor de gefaseerde uitrol en duurzame implementatie van een 'HOGENT XR Academy'. De roadmap zal een planning, budgettaire inschattingen en organisatorische aanbevelingen bevatten voor het verkrijgen van CME-accreditatie. De eindresultaten van deze fase zijn het Validatierapport en de Strategische Roadmap.
 
-Probeer ook een tijdschatting te maken. Hoe lang zal je met elke fase van je onderzoek bezig zijn en wat zijn de concrete \emph{deliverables} in elke fase?
-
+De totale uitvoering van dit onderzoek wordt ingeschat op een periode van 12 weken. De eerste fase (Vereisten) duurt de eerste drie weken. De tweede fase (Ontwikkeling van de POC) is gepland van week 4 tot en met week 8. De derde fase (Validatie) wordt uitgevoerd in de weken 9 en 10. Tot slot wordt de vierde en laatste fase (Strategische Roadmap en Conclusies) afgerond in de weken 11 en 12.
 %---------- Verwachte resultaten ----------------------------------------------
-\section{Verwacht resultaat, conclusie}%
-\label{sec:verwachte_resultaten}
+\section{Verwachte Resultaten en Conclusies}%
+\label{sec:verwachte_resultaten_en_conclusies}
 
-Hier beschrijf je welke resultaten je verwacht. Als je metingen en simulaties uitvoert, kan je hier al mock-ups maken van de grafieken samen met de verwachte conclusies. Benoem zeker al je assen en de onderdelen van de grafiek die je gaat gebruiken. Dit zorgt ervoor dat je concreet weet welk soort data je moet verzamelen en hoe je die moet meten.
+De verwachte resultaten van dit onderzoek vormen de directe basis voor de conclusies over de haalbaarheid van XR-gebaseerd trainingsplatform voor zorgonderwijs.
 
-Wat heeft de doelgroep van je onderzoek aan het resultaat? Op welke manier zorgt jouw bachelorproef voor een meerwaarde?
+Het meest concrete resultaat is de oplevering van de Functionele Proof of Concept. Deze XR-trainingsapplicatie, ontwikkeld op de Meta Quest 3, zal aantonen dat één kritische verpleegkundige handeling interactief en gevalideerd geoefend kan worden. Binnen de Proof of Concept is een werkend meetsysteem geïntegreerd dat objectieve data (zoals tijd, stappen en fouten) capteert. Deze data zal in het Validatierapport de basis vormen om aan te tonen dat de prestatie-evaluatie in de XR-omgeving aan de CME-criteria kan voldoen.
 
-Hier beschrijf je wat je verwacht uit je onderzoek, met de motivatie waarom. Het is \textbf{niet} erg indien uit je onderzoek andere resultaten en conclusies vloeien dan dat je hier beschrijft: het is dan juist interessant om te onderzoeken waarom jouw hypothesen niet overeenkomen met de resultaten.
+Deze resultaten leiden tot de volgende verwachte conclusies:
+
+Allereerst zal een duidelijk antwoord geformuleerd worden op de vraag of het Meta Quest 3-platform technologisch en didactisch volstaat om een realistische en effectieve training van complexe verpleegkundige handelingen te waarborgen. Ten tweede wordt verwacht dat de objectieve data-captatie in de XR-omgeving een betrouwbare en efficiënte basis biedt voor prestatie-evaluatie, waardoor de integratie in het CME-accreditatieproces realistisch wordt geacht. Daarnaast zal de conclusie bevestigen dat de XR-oplossing duidelijke voordelen biedt qua schaalbaarheid en kostenbesparing vergeleken met de huidige, traditionele simulatiemethoden.
+
+Ten slotte zal de oplevering van het Technisch Architectuurrapport en de Roadmap de basis vormen voor de concrete implementatieadviezen. Het onderzoek zal sluiten met een reeks aanbevelingen voor HOGENT over de te volgen stappen om de transitie naar een duurzaam, XR-gebaseerd trainingsmodel succesvol uit te voeren.
 
