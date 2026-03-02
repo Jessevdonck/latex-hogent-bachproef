@@ -7,45 +7,156 @@
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
 
-Dit hoofdstuk bevat je literatuurstudie. De inhoud gaat verder op de inleiding, maar zal het onderwerp van de bachelorproef *diepgaand* uitspitten. De bedoeling is dat de lezer na lezing van dit hoofdstuk helemaal op de hoogte is van de huidige stand van zaken (state-of-the-art) in het onderzoeksdomein. Iemand die niet vertrouwd is met het onderwerp, weet nu voldoende om de rest van het verhaal te kunnen volgen, zonder dat die er nog andere informatie moet over opzoeken \autocite{Pollefliet2011}.
+\chapter{Stand van zaken}
 
-Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${textcite\{\}}} of \texttt{$\backslash${autocite\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\LaTeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin (narratieve referentie), gebruik je \texttt{$\backslash${}textcite\{\}}. Soms is de auteursnaam niet expliciet een onderdeel van de zin, dan gebruik je \texttt{$\backslash${}autocite\{\}} (referentie tussen haakjes). Dit gebruik je bv.~bij een citaat, of om in het bijschrift van een overgenomen afbeelding, broncode, tabel, enz. te verwijzen naar de bron. In de volgende paragraaf een voorbeeld van elk.
+\section{Effectiviteit van XR in medische en verpleegkundige opleidingen}
 
-\textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
+De didactische effectiviteit van Extended Reality binnen medische en verpleegkundige opleidingen is de afgelopen jaren uitvoerig onderzocht via systematische reviews, analyses en gecontroleerde experimentele studies. In het algemeen tonen deze studies aan dat XR-gebaseerde leeromgevingen een significante meerwaarde bieden ten opzichte van traditionele onderwijsvormen, in het bijzonder voor procedurele vaardigheden, klinische besluitvorming en contextueel handelen.
 
-Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je verwijst meteen naar een bron in de eerste zin die erop gebaseerd is, dus niet pas op het einde van een paragraaf.
+Een invloedrijke analyse van \textcite{Kyaw2019VR}, gebaseerd op studies in gezondheidsopleidingen, concludeert dat Virtual Reality (VR) significant betere leerresultaten oplevert dan conventionele instructievormen zoals lezingen, video-instructies en tekstgebaseerde modules. De auteurs rapporteren positieve effecten op kennisverwerving, procedurele uitvoering en leerretentie, met effectgroottes die vergelijkbaar of groter zijn dan andere vormen van simulatieonderwijs. Daarnaast wordt vastgesteld dat VR de betrokkenheid en motivatie van studenten verhoogt, wat bijdraagt aan diepgaand leren.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{grail.jpg}
-  \caption[Voorbeeld figuur.]{\label{fig:grail}Voorbeeld van invoegen van een figuur. Zorg altijd voor een uitgebreid bijschrift dat de figuur volledig beschrijft zonder in de tekst te moeten gaan zoeken. Vergeet ook je bronvermelding niet!}
-\end{figure}
+Deze bevindingen worden bevestigd door latere systematische reviews. Zo stellen \textcite{Radianti2020VRHE} dat immersieve VR-toepassingen bijzonder geschikt zijn voor het trainen van complexe vaardigheden waarbij meerdere cognitieve processen gelijktijdig worden aangesproken, zoals klinisch redeneren, prioritering en besluitvorming onder tijdsdruk. In een meer recente overzichtsstudie benadrukken \textcite{Lampropoulos2025VR} dat XR-omgevingen leiden tot verhoogde cognitieve betrokkenheid en situationeel bewustzijn, twee factoren die cruciaal zijn voor het ontwikkelen van klinische competenties.
 
-\begin{listing}
-  \begin{minted}{python}
-    import pandas as pd
-    import seaborn as sns
+\subsection{Cognitieve leeruitkomsten}
 
-    penguins = sns.load_dataset('penguins')
-    sns.relplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
-  \end{minted}
-  \caption[Voorbeeld codefragment]{Voorbeeld van het invoegen van een codefragment.}
-\end{listing}
+In de literatuur wordt consequent aangetoond dat XR in het medisch onderwijs een positieve invloed heeft op cognitief leren. Processen zoals kennisverwerving, kennisretentie, klinisch redeneren en transfer naar de praktijk worden door deze technologie ondersteund. Dit wordt vaak verklaard door het ervaringsgerichte karakter van XR-leeromgevingen.
 
-\lipsum[7-20]
+Volgens \textcite{Mayer2009Multimedia} zorgt het combineren van visuele, tekstuele en interactieve informatie ervoor dat studenten leerinhoud dieper verwerken en beter structureren. XR sluit hier goed bij aan doordat het meerdere vormen van stimuli tegelijk aanbiedt en studenten actief laat deelnemen aan het leerproces.
 
-\begin{table}
-  \centering
-  \begin{tabular}{lcr}
-    \toprule
-    \textbf{Kolom 1} & \textbf{Kolom 2} & \textbf{Kolom 3} \\
-    $\alpha$         & $\beta$          & $\gamma$         \\
-    \midrule
-    A                & 10.230           & a                \\
-    B                & 45.678           & b                \\
-    C                & 99.987           & c                \\
-    \bottomrule
-  \end{tabular}
-  \caption[Voorbeeld tabel]{\label{tab:example}Voorbeeld van een tabel.}
-\end{table}
+Empirische studies ondersteunen deze theoretische basis. In hun meta-analyse tonen \textcite{Kyaw2019VR} aan dat VR-training betere resultaten oplevert op vlak van kennisverwerving en kennisretentie in vergelijking met traditionele opleidingsvormen. Dit wordt verklaard door de hogere betrokkenheid van studenten en de mogelijkheid om leerstof toe te passen in realistische scenario’s.
 
+Daarnaast blijkt XR bijzonder geschikt voor situated learning, waarbij studenten oefenen in een omgeving die sterk lijkt op de echte werksituatie. Volgens \textcite{Fowler2015VR} helpt dit studenten om kennis te koppelen aan concrete praktijksituaties en beslissingen die ze later in de klinische praktijk moeten nemen.
+
+Onderzoek binnen verpleegkundige opleidingen toont ook aan dat XR het klinisch redeneren en de besluitvorming verbetert. In een experimentele studie rond VR-simulatie in de verpleegkunde tonen \textcite{Padilha2019VR} aan dat studenten die VR-training kregen beter scoorden op klinische besluitvorming en probleemoplossend vermogen dan studenten die een traditionele simulatie volgden.
+
+Naast kennis en redeneren ondersteunt XR ook de ontwikkeling van cognitieve flexibiliteit, namelijk het vermogen om kennis toe te passen in verschillende en vaak complexe situaties. Door scenario’s te variëren in moeilijkheidsgraad en context kunnen studenten verschillende oplossingsstrategieën verkennen en hun klinisch denken verder ontwikkelen.
+
+Een bijkomend voordeel van XR is dat het directe feedback en herhaald oefenen mogelijk maakt. Studenten kunnen fouten identificeren, corrigeren en hun acties opnieuw uitvoeren binnen dezelfde leeromgeving. Dit sluit aan bij het principe van deliberate practice, waarbij herhaling en gerichte feedback centraal staan.
+
+Ondanks deze voordelen wijzen verschillende auteurs op belangrijke randvoorwaarden. Zo stellen \textcite{Radianti2020VRHE} dat leerwinst sterk afhankelijk is van de kwaliteit van het didactisch ontwerp en de mate waarin XR geïntegreerd wordt in het curriculum. Slecht ontworpen XR-toepassingen kunnen leiden tot verwarring of cognitieve overbelasting, bijvoorbeeld wanneer er te veel visuele of interactieve elementen tegelijk worden aangeboden.
+
+\subsection{Procedurele en psychomotorische vaardigheden}
+
+Naast cognitieve leeruitkomsten is het trainen van procedurele en psychomotorische vaardigheden een kerncomponent van medische en verpleegkundige opleidingen. In dit domein wordt XR vooral ingezet om de correcte volgorde van handelingen, beslissingslogica en foutdetectie te trainen, eerder dan de fysieke uitvoering van motorische handelingen zelf.
+
+Een substantieel deel van de literatuur toont aan dat XR effectief is voor het aanleren van procedurele sequenties. In een systematische review en meta-analyse van laparoscopische training tonen \textcite{Alaker2016VR} aan dat VR-training leidt tot significante verbeteringen in procedurele nauwkeurigheid, snelheid en foutreductie in vergelijking met traditionele training. Hoewel deze studie zich richt op chirurgische contexten, zijn de onderliggende principes overdraagbaar naar andere medische handelingen waarbij een vaste procedure gevolgd moet worden.
+
+Binnen verpleegkundige en acute zorgcontexten bevestigen vergelijkbare studies deze bevindingen. Zo tonen \textcite{Padilha2019VR} aan dat studenten die getraind werden via VR-simulatie significant beter scoorden op correcte uitvoering van klinische procedures en minder kritische fouten maakten dan studenten in traditionele simulatiecondities. De auteurs benadrukken dat vooral de mogelijkheid tot herhaald oefenen en directe feedback hierbij een cruciale rol speelt.
+
+XR blijkt bijzonder geschikt voor het trainen van procedural fidelity, namelijk de correcte volgorde en timing van handelingen. Dit is essentieel in handelingen zoals Basic Life Support, waar het volgen van een vaste sequentie (alarmeren, checken van bewustzijn en ademhaling, starten van compressies, gebruik van AED) bepalend is voor de klinische uitkomst. Door deze stappen herhaaldelijk te oefenen in een XR-omgeving kunnen studenten de procedure automatiseren en sneller en consistenter uitvoeren.
+
+Daarnaast ondersteunt XR het herkennen en vermijden van fouten. Door scenario’s te ontwerpen waarin veelgemaakte fouten expliciet voorkomen (bijvoorbeeld te lange onderbrekingen van compressies of incorrect gebruik van een AED), kunnen studenten leren om deze fouten te detecteren en te corrigeren. Dit sluit aan bij principes van error-based learning, die aantonen dat leren van fouten een krachtige strategie is voor vaardigheidsverwerving.
+
+Wat betreft psychomotorische vaardigheden is het beeld genuanceerder. XR-systemen zonder haptische feedback kunnen de fysieke component van handelingen, zoals kracht, druk en tactiele sensatie, slechts beperkt simuleren. Onderzoek toont aan dat VR-training minder effectief is voor het aanleren van fysieke motorische parameters, zoals de juiste compressiediepte bij CPR \autocite{Alaker2016VR}. 
+
+Daarom pleiten verschillende auteurs voor een hybride opleidingsmodel, waarbij XR wordt ingezet voor de procedurele en cognitieve componenten van een handeling, en fysieke simulatie wordt gebruikt voor het trainen van de motorische uitvoering.
+
+Een bijkomend voordeel van XR is de mogelijkheid tot gedetailleerde logging van gebruikersacties. Dit maakt het mogelijk om objectieve prestatie-indicatoren te verzamelen, zoals tijd tot eerste compressie, volgorde van handelingen en frequentie van fouten. Deze data kunnen gebruikt worden voor formatieve feedback en summatieve evaluatie, wat in traditionele simulatie vaak moeilijker te realiseren is.
+
+Tot slot benadrukken \textcite{Radianti2020VRHE} dat de effectiviteit van XR voor procedurele training sterk afhankelijk is van het didactisch ontwerp van de simulatie. Scenario’s moeten voldoende realistisch zijn, duidelijke leerdoelen bevatten en voorzien zijn van gepaste feedbackmechanismen. Zonder deze elementen kan XR zijn potentieel voor vaardigheidstraining niet volledig realiseren.
+
+Samengevat kan gezegd worden dat XR bijzonder effectief is voor het trainen van procedurele vaardigheden en beslissingslogica in medische contexten. Voor de ontwikkeling van volledige psychomotorische competentie blijft echter een combinatie met fysieke simulatie noodzakelijk. Deze inzichten zijn direct relevant voor de ontwikkeling van de XR Proof of Concept in deze bachelorproef, waarin de nadruk ligt op procedurele correctheid en besluitvorming binnen BLS-training.
+
+\subsection{Affectieve en gedragsmatige leeruitkomsten}
+
+Naast cognitieve effecten heeft XR ook invloed op affectieve en gedragsmatige leeruitkomsten, zoals motivatie, zelfvertrouwen, betrokkenheid en de bereidheid om te handelen. Dit is vooral belangrijk in medische en verpleegkundige contexten, waar kennis en vaardigheden alleen niet volstaan, maar waar studenten ook snel en zelfzeker moeten kunnen reageren in stressvolle situaties.
+
+Een belangrijke verklaring hiervoor is het gevoel van presence in een virtuele omgeving. Volgens \textcite{Slater2009PlaceIllusion} kan immersieve XR een sterk gevoel geven van ``er echt zijn'', waardoor studenten realistischer reageren en zich meer emotioneel betrokken voelen. Daardoor ervaren ze de situatie als relevanter en urgenter, wat hun motivatie en betrokkenheid verhoogt.
+
+Verschillende studies tonen aan dat XR-training zorgt voor meer intrinsieke motivatie en engagement dan traditionele onderwijsvormen \autocite{Fowler2015VR}. Studenten geven aan dat ze actiever deelnemen aan het leerproces en meer geneigd zijn om te experimenteren binnen de veilige leeromgeving die XR biedt.
+
+Een ander belangrijk effect is een toename in zelfvertrouwen en self-efficacy. Studenten die oefenen met XR voelen zich vaak competenter en hebben meer vertrouwen in hun eigen handelen in klinische situaties. Zo tonen \textcite{Padilha2019VR} aan dat verpleegkundestudenten na VR-training significant hoger scoren op zelfvertrouwen in hun klinische beslissingen en handelingen dan studenten die een klassieke simulatie volgden.
+
+Dat verhoogde zelfvertrouwen heeft ook invloed op gedrag. Studenten zijn sneller geneigd om effectief op te treden in noodsituaties, wat bijvoorbeeld bij Basic Life Support cruciaal is. XR laat hen toe om initiatief te nemen, beslissingen te maken onder tijdsdruk en te leren omgaan met stress, maar dan in een veilige en gecontroleerde omgeving.
+
+Daarnaast zorgt XR voor meer emotionele en situationele betrokkenheid. Door realistische scenario’s met visuele en auditieve prikkels (zoals een patiënt die niet reageert of omstanders die reageren) worden studenten geconfronteerd met de emotionele kant van klinische situaties. Dit kan bijdragen aan empathie en professioneel gedrag.
+
+XR kan ook helpen bij het ontwikkelen van stressmanagement en copingvaardigheden. Door herhaald te oefenen in gesimuleerde noodsituaties leren studenten omgaan met stressreacties en blijven ze beter functioneren onder druk. Onderzoek toont aan dat zulke veilige simulaties kunnen bijdragen aan veerkracht en zelfregulatie.
+
+Er zijn wel enkele aandachtspunten. Een te hoge mate van immersie of emotionele intensiteit kan bij sommige studenten stress, cognitieve overbelasting of simulator sickness veroorzaken. Daarom is het belangrijk dat XR-scenario’s goed ontworpen zijn en afgestemd worden op het niveau van de gebruiker.
+
+Samengevat biedt XR een duidelijke meerwaarde voor affectieve en gedragsmatige leeruitkomsten in medische en verpleegkundige opleidingen. Door de toename in motivatie, zelfvertrouwen en bereidheid om te handelen helpt XR studenten om beter voorbereid te zijn op echte klinische situaties. Dit is bijzonder relevant voor BLS-training, waar snel en correct handelen een groot verschil kan maken.
+
+\subsection{Specifieke toepassingen in verpleegkundige en acute zorgcontext}
+
+Binnen verpleegkundige opleidingen en acute zorgcontexten wordt Extended Reality (XR) steeds vaker gebruikt om klinische vaardigheden te trainen in situaties waar tijdsdruk, complexiteit en patiëntveiligheid een grote rol spelen. Vooral acute zorgsituaties, zoals reanimatie, spoedtriage en neonatale zorg, lenen zich goed voor XR-simulaties omdat ze sterk afhangen van correcte beslissingen, het volgen van vaste procedures en goede samenwerking binnen een team.
+
+Een belangrijk toepassingsgebied is het trainen van acute zorgprocedures bij verpleegkundestudenten. In een gerandomiseerde studie van \textcite{Padilha2019VR}, waarin een VR-simulatie werd vergeleken met traditionele lesmethodes, scoorden studenten beter op klinische besluitvorming, probleemoplossend denken en het correct uitvoeren van handelingen. Daarnaast gaven ze ook aan dat ze meer zelfvertrouwen en betrokkenheid ervaarden tijdens het leren.
+
+Ook binnen neonatale en pediatrische zorg worden gelijkaardige effecten gevonden. Zo ontwikkelden \textcite{Hung2024VR} een VR-programma voor de eerste zorgen bij pasgeborenen. Studenten die hiermee trainden werkten efficiënter, handelden sneller en pasten klinische richtlijnen correcter toe. Bovendien rapporteerden ze een hoger gevoel van self-efficacy.
+
+Systematische reviews bevestigen deze positieve effecten. \textcite{ShoreyNg2021VRSR} tonen aan dat VR-simulaties bijdragen aan betere klinische prestaties, meer kennis en meer zelfvertrouwen bij zowel studenten als ervaren verpleegkundigen. Daarnaast beschrijven \textcite{Liaw2018MUVW} dat multi-user virtuele omgevingen vooral geschikt zijn om communicatie, teamwork en coördinatie te trainen, wat essentieel is in acute zorgsituaties.
+
+XR wordt ook ingezet voor training in spoedzorg en triage, waarbij studenten leren omgaan met meerdere patiënten tegelijk en beperkte tijd. Zulke scenario’s helpen bij het ontwikkelen van prioriteiten stellen en situationeel bewustzijn, vaardigheden die in de praktijk vaak het verschil maken.
+
+Binnen reanimatie en Basic Life Support (BLS) groeit de interesse in XR als leermiddel. XR maakt het mogelijk om de volledige reanimatieketen te oefenen: van het herkennen van een noodsituatie tot het starten van CPR en het correct gebruiken van een AED. Door dit herhaald te oefenen in een veilige maar realistische omgeving kunnen studenten hun kennis en beslissingen automatiseren.
+
+Een groot voordeel van XR in acute zorgtraining is dat ook zeldzame maar kritische situaties geoefend kunnen worden. In een traditionele stage komen studenten niet altijd in aanraking met zulke situaties, terwijl XR toelaat om die toch meerdere keren te trainen zonder risico voor patiënten. Dit verhoogt de paraatheid en het zelfvertrouwen van studenten wanneer ze later in de praktijk met echte noodsituaties geconfronteerd worden.
+
+Daarnaast ondersteunt XR ook niet-technische vaardigheden zoals communicatie, teamwork en leiderschap. Door scenario’s te ontwerpen met meerdere rollen (bijvoorbeeld collega’s of omstanders) kunnen studenten oefenen in samenwerken en communiceren onder druk.
+
+Er zijn wel enkele aandachtspunten. De meerwaarde van XR hangt sterk af van hoe goed het didactisch is uitgewerkt en hoe het geïntegreerd wordt in het curriculum. Voor bepaalde vaardigheden, zoals het uitvoeren van fysieke reanimatiecompressies, blijft een combinatie met fysieke simulatie noodzakelijk.
+
+Samengevat tonen studies aan dat XR een waardevolle en veelzijdige tool is binnen verpleegkundige opleidingen in acute zorgcontexten. Het laat toe om realistische, veilige en herhaalbare scenario’s aan te bieden waarin studenten zowel technische als niet-technische vaardigheden kunnen ontwikkelen. Deze inzichten vormen de basis voor de XR Proof of Concept in deze bachelorproef, die focust op BLS-training binnen een verpleegkundige opleidingscontext.
+
+\subsection{Didactische meerwaarde en ontwerpprincipes}
+
+Naast de aangetoonde effecten van XR op leeruitkomsten zit een groot deel van de meerwaarde ook in de didactische mogelijkheden van de technologie. XR laat toe om leeromgevingen te bouwen die goed aansluiten bij moderne onderwijskundige principes zoals experiential learning, deliberate practice en mastery learning, die in medische opleidingen vaak gebruikt worden.
+
+Een eerste belangrijk principe is experiential learning, waarbij studenten leren door actief te handelen en nadien te reflecteren op hun ervaringen. XR maakt het mogelijk om realistische klinische situaties na te bootsen in een veilige omgeving, zonder risico voor patiënten. Dit sluit aan bij de leercyclus van Kolb, waarbij ervaring, reflectie, conceptualisatie en experimenteren elkaar afwisselen. In XR kunnen studenten deze cyclus meerdere keren doorlopen binnen één leeromgeving.
+
+Een tweede principe is deliberate practice. Hierbij oefenen studenten gericht op specifieke vaardigheden, met duidelijke doelen, herhaling en directe feedback. XR-simulaties maken het mogelijk om scenario’s meerdere keren te doorlopen en prestaties automatisch bij te houden, waardoor gerichte feedback kan gegeven worden. Onderzoek toont aan dat deze vorm van oefenen essentieel is voor het ontwikkelen van klinische expertise \autocite{Ericsson2004Deliberate}.
+
+Daarnaast ondersteunt XR ook mastery learning. Studenten gaan pas verder naar een volgend niveau wanneer ze een bepaalde vaardigheid voldoende beheersen. XR-systemen kunnen scenario’s automatisch aanpassen aan het niveau van de gebruiker, waardoor het leertraject meer gepersonaliseerd wordt.
+
+XR is ook zeer geschikt voor scenario-based learning. In plaats van losse handelingen te oefenen, worden studenten geconfronteerd met volledige klinische situaties waarin verschillende competenties samenkomen, zoals observeren, beslissingen nemen, communiceren en handelen. Dit sluit beter aan bij hoe de praktijk er in werkelijkheid uitziet.
+
+Een bijkomend voordeel van XR is de mogelijkheid tot directe feedback. Systemen kunnen automatisch feedback geven op basis van wat de student doet, bijvoorbeeld over de volgorde van handelingen, timing of gemaakte fouten. Dit helpt studenten om hun prestaties onmiddellijk bij te sturen.
+
+Uit de literatuur komen ook een aantal ontwerpprincipes naar voren voor effectieve XR-leeromgevingen. Zo benadrukken \textcite{Radianti2020VRHE} het belang van:
+\begin{itemize}
+    \item duidelijke leerdoelen en een goede afstemming met het curriculum
+    \item voldoende interactiviteit en controle voor de gebruiker
+    \item realistische maar didactisch doordachte scenario’s
+    \item ingebouwde feedbackmechanismen
+\end{itemize}
+
+Daarnaast wijzen \textcite{Fowler2015VR} en \textcite{Mayer2009Multimedia} op het belang van cognitieve belasting. XR-omgevingen moeten zo ontworpen worden dat relevante informatie duidelijk naar voren komt en onnodige visuele of auditieve prikkels beperkt blijven, zodat studenten niet overbelast raken.
+
+Voor toepassingen in BLS-training betekent dit bijvoorbeeld dat XR-scenario’s:
+\begin{itemize}
+    \item de juiste volgorde van handelingen duidelijk weergeven
+    \item belangrijke beslissingsmomenten zichtbaar maken
+    \item feedback geven op timing (zoals tijd tot eerste compressie)
+    \item realistisch zijn, maar niet onnodig complex
+\end{itemize}
+
+Er moet wel rekening gehouden worden met beperkingen van XR. Zo kan het gebrek aan haptische feedback het moeilijk maken om bepaalde motorische vaardigheden correct aan te leren. Daarom wordt vaak gekozen voor een hybride aanpak, waarbij XR gecombineerd wordt met fysieke simulatie en klassikale begeleiding.
+
+Samengevat ligt de didactische meerwaarde van XR niet alleen in de technologie zelf, maar vooral in hoe deze wordt ingezet binnen het onderwijs. Door XR te combineren met sterke didactische principes kan een flexibele, motiverende en effectieve leeromgeving gecreëerd worden die studenten goed voorbereidt op de complexiteit van de klinische praktijk.
+
+\subsection{Beperkingen en kritische reflectie}
+
+Hoewel de literatuur duidelijk aantoont dat XR een waardevolle aanvulling kan zijn binnen medische en verpleegkundige opleidingen, worden er ook een aantal belangrijke beperkingen en aandachtspunten genoemd. Het is belangrijk om deze mee te nemen om de rol van XR correct te kunnen plaatsen binnen het onderwijs.
+
+Een eerste beperking is de beperkte fysieke en haptische feedback. Veel XR-toepassingen, zeker standalone VR-systemen, zijn minder geschikt voor het trainen van psychomotorische vaardigheden waarbij kracht, druk en gevoel belangrijk zijn, zoals de juiste diepte van borstcompressies bij CPR. Onderzoek toont aan dat VR vooral sterk is in het aanleren van procedurele stappen en beslissingen, maar minder in motorische precisie \autocite{Alaker2016VR}. Daarom blijft oefenen met fysieke simulatiemiddelen, zoals manikins, noodzakelijk.
+
+Een tweede aandachtspunt is het risico op cognitieve overbelasting. XR-omgevingen bevatten vaak veel visuele en auditieve prikkels. Wanneer deze niet goed ontworpen zijn, kan dit leiden tot overbelasting en slechtere leerprestaties. Volgens \textcite{Mayer2009Multimedia} moeten leeromgevingen zo ontworpen worden dat irrelevante informatie wordt beperkt en de focus ligt op wat echt belangrijk is.
+
+Daarnaast kunnen XR-systemen ook fysieke bijwerkingen veroorzaken, zoals simulator sickness (bijvoorbeeld misselijkheid of duizeligheid), wat een negatieve invloed kan hebben op de leerervaring \autocite{Kennedy1993SSQ}. De mate waarin dit voorkomt verschilt per gebruiker en hangt onder andere af van technische factoren zoals framerate en bewegingsinteractie.
+
+Een andere belangrijke uitdaging is de didactische integratie. Zoals \textcite{Radianti2020VRHE} aangeven, hangt de effectiviteit van XR sterk af van hoe goed de technologie wordt ingebed in het curriculum. XR mag geen losstaand element zijn, maar moet deel uitmaken van een breder leertraject met duidelijke leerdoelen, begeleiding en evaluatie.
+
+Ook op organisatorisch vlak zijn er enkele aandachtspunten. De ontwikkeling en implementatie van XR-toepassingen kan vrij kostelijk zijn, zeker wanneer maatwerk en specifieke hardware nodig zijn. Daarnaast vraagt het gebruik van XR ook technische ondersteuning en moeten docenten voldoende vertrouwd zijn met de technologie om deze goed te kunnen inzetten in hun lessen.
+
+Verder is er nog een gebrek aan standaardisatie en validatie van XR-toepassingen binnen medische opleidingen. Hoewel veel studies positieve resultaten tonen, gebruiken ze vaak verschillende onderzoeksmethodes en evaluatiecriteria. Daardoor is het moeilijk om resultaten rechtstreeks met elkaar te vergelijken. Er is dus nood aan meer gestandaardiseerd onderzoek en aan studies die de effecten van XR ook op langere termijn bekijken.
+
+Tot slot zijn er ook ethische en praktische aandachtspunten. XR-scenario’s kunnen vrij intens en realistisch zijn, wat voor sommige studenten als belastend kan worden ervaren. Daarnaast moet er zorgvuldig omgegaan worden met gebruikersdata en privacy wanneer prestaties of interacties worden opgeslagen voor evaluatie of feedback.
+
+Samengevat biedt XR duidelijke didactische voordelen, maar kan het traditionele leermethoden niet volledig vervangen. De literatuur wijst eerder op een hybride aanpak, waarbij XR wordt gecombineerd met fysieke simulatie en klassikale begeleiding. Deze inzichten vormen ook een belangrijk uitgangspunt voor de ontwikkeling van de XR Proof of Concept in deze bachelorproef, waarin bewust gekozen wordt om te focussen op de procedurele en cognitieve aspecten van BLS-training, als aanvulling op bestaande praktijklessen.
+
+\subsection{Synthese}
+
+Samenvattend toont de literatuur overtuigend aan dat XR een evidence-based en krachtige aanvulling vormt op bestaande opleidingsmethoden in de gezondheidszorg. XR biedt duidelijke meerwaarde voor cognitieve, procedurele en affectieve leeruitkomsten, en ondersteunt de ontwikkeling van klinische competenties in complexe en risicovrije leeromgevingen. 
+
+Voor een optimale impact dient XR echter geïntegreerd te worden in een didactisch onderbouwd leertraject en gecombineerd te worden met fysieke simulatie waar tactiele vaardigheden vereist zijn. Deze inzichten vormen de basis voor het ontwerp van de XR Proof of Concept in deze bachelorproef.

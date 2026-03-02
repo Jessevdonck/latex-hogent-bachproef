@@ -5,46 +5,73 @@
 \chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}%
 \label{ch:inleiding}
 
-De inleiding moet de lezer net genoeg informatie verschaffen om het onderwerp te begrijpen en in te zien waarom de onderzoeksvraag de moeite waard is om te onderzoeken. In de inleiding ga je literatuurverwijzingen beperken, zodat de tekst vlot leesbaar blijft. Je kan de inleiding verder onderverdelen in secties als dit de tekst verduidelijkt. Zaken die aan bod kunnen komen in de inleiding~\autocite{Pollefliet2011}:
+Een plotse circulatiestilstand is een hoogdringende noodsituatie waarbij de kans op overleving sterk afhangt van tijdige herkenning, onmiddellijk alarmeren, kwalitatieve borstcompressies en zo snel mogelijk defibrilleren met een AED.
+Daarom vormt Basic Life Support een kerncompetentie binnen de opleiding verpleegkunde en binnen het bredere zorgveld.
+Recente internationale richtlijnen (o.a.\ \emph{European Resuscitation Council} en \emph{American Heart Association}) leggen daarnaast steeds meer nadruk op gestructureerde, evidence-based leertrajecten en op het bewaken van de kwaliteit en veiligheid van reanimatie-onderwijs \autocite{ERC2025BLS,AHA2025Guidelines}.
+%
 
-\begin{itemize}
-  \item context, achtergrond
-  \item afbakenen van het onderwerp
-  \item verantwoording van het onderwerp, methodologie
-  \item probleemstelling
-  \item onderzoeksdoelstelling
-  \item onderzoeksvraag
-  \item \ldots
-\end{itemize}
+In de praktijk is het organiseren van voldoende, herhaaldelijke en scenario-rijke BLS-oefenkansen echter niet evident.
+Klassieke trainingsvormen (instructeurgeleide sessies, skill-lab, manikintraining) vragen planning, infrastructuur en docentcapaciteit.
+Daarnaast is het voor studenten belangrijk om niet alleen de techniek te oefenen, maar ook het juiste beslissings- en werkproces onder tijdsdruk te beheersen. Dat houdt in dat ze de correcte volgorde volgen, onderbrekingen beperken, de AED veilig gebruiken en kritieke fouten vermijden.
+Extended Reality biedt in theorie kansen om deze procedurele en contextuele componenten schaalbaarder te oefenen via herhaalbare scenario’s, directe feedback en objectieve logging van acties en timing.
+Tegelijk waarschuwen richtlijnen dat Extended Reality niet zomaar als volwaardige vervanging kan dienen voor het aanleren van CPR-vaardigheden (bv.\ compressiediepte), en dat de rol van immersive technologie vooral zorgvuldig en aanvullend moet worden ingevuld \autocite{AHA2025Guidelines,ILCOR2023Immersive}.
+
+Deze bachelorproef onderzoekt daarom hoe een XR-gebaseerde BLS-trainings-\emph{proof-of-concept} (PoC) ontworpen kan worden als didactische en technische bouwsteen voor verpleegkundig onderwijs.
+In dit onderzoek wordt een Proof of Concept ontwikkeld die de kracht van XR benut voor het trainen van de reanimatievolgorde en de AED-procedure. Omdat fysieke weerstand ontbreekt, wordt er geen volledige meting van de compressiekwaliteit uitgevoerd. De nadruk ligt op het creëren van een realistische, richtlijnconforme simulatie waarin de leerling leert om op het juiste moment de juiste beslissingen te nemen. Hiermee vormt de applicatie een aanvulling op de praktijklessen.
+Methodologisch sluit dit aan bij \emph{Design Science Research}, waarbij een artefact iteratief wordt ontworpen, ontwikkeld en geëvalueerd in functie van een concreet praktijkprobleem \autocite{Peffers2007,Hevner2004}.
 
 \section{\IfLanguageName{dutch}{Probleemstelling}{Problem Statement}}%
 \label{sec:probleemstelling}
 
-Uit je probleemstelling moet duidelijk zijn dat je onderzoek een meerwaarde heeft voor een concrete doelgroep. De doelgroep moet goed gedefinieerd en afgelijnd zijn. Doelgroepen als ``bedrijven,'' ``KMO's'', systeembeheerders, enz.~zijn nog te vaag. Als je een lijstje kan maken van de personen/organisaties die een meerwaarde zullen vinden in deze bachelorproef (dit is eigenlijk je steekproefkader), dan is dat een indicatie dat de doelgroep goed gedefinieerd is. Dit kan een enkel bedrijf zijn of zelfs één persoon (je co-promotor/opdrachtgever).
+De centrale probleemstelling in deze bachelorproef is dat verpleegkundestudenten voldoende kansen nodig hebben om BLS-procedures veilig, herhaaldelijk en scenario-gericht te oefenen, terwijl de huidige onderwijsorganisatie beperkingen kent op vlak van schaalbaarheid, herhaalbaarheid en systematische meting van proceskwaliteit.
+Daarnaast is er een kwaliteitsrisico: ``immersieve'' training is niet automatisch ``correcte'' training; inhoud en feedback moeten aantoonbaar richtlijnconform zijn \autocite{ERC2025BLS,AHA2025Guidelines}.
+
+De primaire doelgroep van deze bachelorproef bestaat uit:
+(1) studenten professionele bachelor verpleegkunde aan HOGENT die BLS moeten inoefenen,
+en (2) docenten die instaan voor BLS-onderwijs, oefensessies en evaluatie.
+
+De PoC moet het mogelijk maken om kernstappen, bv.\ alarmeren, starten CPR, AED inzetten en veilig schokken, te oefenen én te loggen, zodat feedback en evaluatie niet uitsluitend afhangen van observatie op het moment zelf.
 
 \section{\IfLanguageName{dutch}{Onderzoeksvraag}{Research question}}%
 \label{sec:onderzoeksvraag}
 
-Wees zo concreet mogelijk bij het formuleren van je onderzoeksvraag. Een onderzoeksvraag is trouwens iets waar nog niemand op dit moment een antwoord heeft (voor zover je kan nagaan). Het opzoeken van bestaande informatie (bv. ``welke tools bestaan er voor deze toepassing?'') is dus geen onderzoeksvraag. Je kan de onderzoeksvraag verder specifiëren in deelvragen. Bv.~als je onderzoek gaat over performantiemetingen, dan 
+De hoofdonderzoeksvraag luidt als volgt:
+
+\begin{quote}
+    In hoeverre biedt een XR-applicatie voor reanimatietraining een veilige en bruikbare leeromgeving voor verpleegkundestudenten, waarbij objectieve data over de uitvoering kunnen worden ingezet voor feedback en evaluatie?
+\end{quote}
+
+Om deze doelstelling te bereiken, zullen in deze bachelorproef de volgende onderzoeksvragen worden uitgewerkt:
+\begin{itemize}
+    \item Hoe kan een XR-toepassing op Meta Quest 3 realistische medische simulaties ondersteunen die voldoen aan didactische vereisten voor verpleegkunde?
+    \item Wat zijn de minimale technische en gebruiksvoorwaarden om een schaalbare en uitbreidbare XR-simulatieomgeving te ontwikkelen?
+    \item In welke mate ervaren gebruikers (studenten en docenten) de XR-ervaring als realistisch, nuttig en gebruiksvriendelijk?
+    \item Welke kwaliteitscriteria gelden voor CME-credits in de zorgsector, en in hoeverre kan de PoC de kwantitatieve data leveren die met deze criteria in lijn ligt?
+    \item Wat zijn de technische en organisatorische stappen om de POC door te ontwikkelen naar een duurzame 'HOGENT XR Academy'?
+\end{itemize}
 
 \section{\IfLanguageName{dutch}{Onderzoeksdoelstelling}{Research objective}}%
 \label{sec:onderzoeksdoelstelling}
 
-Wat is het beoogde resultaat van je bachelorproef? Wat zijn de criteria voor succes? Beschrijf die zo concreet mogelijk. Gaat het bv.\ om een proof-of-concept, een prototype, een verslag met aanbevelingen, een vergelijkende studie, enz.
+Het hoofddoel van deze bachelorproef is de ontwikkeling van een functionele XR-applicatie voor Basic Life Support en het gebruik van een AED. Het resultaat omvat niet enkel het technische prototype, maar een integraal pakket bestaande uit een onderbouwd ontwerp, de technische realisatie en een uitgebreid evaluatieverslag.
+
+Succes wordt in dit project niet alleen gemeten aan de hand van de technische werking van de applicatie. Het gaat om een combinatie van medische correctheid, gebruiksgemak en het genereren van waardevolle trainingsdata. Hiermee legt deze bachelorproef een realistische basis voor de verdere integratie van XR-simulaties binnen de opleiding.
 
 \section{\IfLanguageName{dutch}{Opzet van deze bachelorproef}{Structure of this bachelor thesis}}%
 \label{sec:opzet-bachelorproef}
-
-% Het is gebruikelijk aan het einde van de inleiding een overzicht te
-% geven van de opbouw van de rest van de tekst. Deze sectie bevat al een aanzet
-% die je kan aanvullen/aanpassen in functie van je eigen tekst.
 
 De rest van deze bachelorproef is als volgt opgebouwd:
 
 In Hoofdstuk~\ref{ch:stand-van-zaken} wordt een overzicht gegeven van de stand van zaken binnen het onderzoeksdomein, op basis van een literatuurstudie.
 
-In Hoofdstuk~\ref{ch:methodologie} wordt de methodologie toegelicht en worden de gebruikte onderzoekstechnieken besproken om een antwoord te kunnen formuleren op de onderzoeksvragen.
+In Hoofdstuk~\ref{ch:methodologie} wordt de methodologie toegelicht, met aandacht voor de keuze voor Design Science Research, de ontwerp- en ontwikkelaanpak, en een concreet validatieplan met meetinstrumenten.
 
-% TODO: Vul hier aan voor je eigen hoofstukken, één of twee zinnen per hoofdstuk
+In Hoofdstuk~\ref{ch:eisen-scope} worden de richtlijnen en onderwijscontext vertaald naar concrete toetsbare requirements en afbakeningen voor de XR-applicatie.
 
-In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvragen. Daarbij wordt ook een aanzet gegeven voor toekomstig onderzoek binnen dit domein.
+In Hoofdstuk~\ref{ch:ontwerp} wordt het didactisch en technisch ontwerp van de XR-toepassing uitgewerkt, inclusief de leerdoelen, scenario-opbouw, interacties en systeemarchitectuur.
+
+In Hoofdstuk~\ref{ch:ontwikkeling} wordt de implementatie van de Proof of Concept beschreven, met aandacht voor de gebruikte technologieën, de realisatie van de simulatie en de verwerking van gebruikersdata.
+
+In Hoofdstuk~\ref{ch:evaluatie} worden de resultaten van de evaluatie en validatie besproken, op basis van gebruikerstesten, feedback van studenten en docenten en analyse van de gelogde data.
+
+In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvragen. Daarbij wordt ook een aanzet gegeven voor toekomstig onderzoek en mogelijke opschaling binnen het onderwijs.
