@@ -33,16 +33,19 @@
 % Wie zijn bachelorproef in het Nederlands schrijft, kan dit negeren, de inhoud
 % wordt niet in het document ingevoegd.
 
-\IfLanguageName{english}{%
 \selectlanguage{dutch}
+
+%%=============================================================================
+%% Samenvatting
+%%=============================================================================
+
 \chapter*{Samenvatting}
-\lipsum[1-4]
-\selectlanguage{english}
-}{}
 
-%%---------- Samenvatting -----------------------------------------------------
-% De samenvatting in de hoofdtaal van het document
+Deze bachelorproef gaat over de ontwikkeling van XR SkillSim, een Extended Reality applicatie voor de Meta Quest 3, die is ontwikkeld om studenten verpleegkunde te helpen bij het leren van Basic Life Support en het inzetten van een Automated External Defibrillator. In het huidige zorgonderwijs vormt de schaalbaarheid en de objectieve beoordeling van procedurele vaardigheden een grote uitdaging. Traditionele simulatielaboratoria zijn vaak duur en hebben een beperkte logistiek, waardoor studenten niet genoeg mogelijkheden hebben om kritieke besluitvormingsprocessen onder realistische druk te oefenen.
 
-\chapter*{\IfLanguageName{dutch}{Samenvatting}{Abstract}}
 
-\lipsum[1-4]
+De centrale onderzoeksvraag richt zich op de mate waarin een XR-applicatie een veilige, bruikbare leeromgeving kan bieden waarbij objectieve data over de uitvoering wordt ingezet voor feedback en evaluatie. Gebruikmakend van de Design Science Research-methodologie is een Proof of Concept ontwikkeld met de Unity-engine. De technische architectuur is gebaseerd op een modulair State Design Pattern en een event-driven systeem, wat de applicatie schaalbaar maakt voor toekomstige klinische scenario's binnen de beoogde HOGENT XR Academy.
+
+Belangrijke technische realisaties omvatten de implementatie van custom velocity-based interactoren voor de bewustzijnscontrole en een ruimtelijk validatiesysteem voor de correcte plaatsing van AED-elektroden. Daarnaast is een geavanceerd dataloggingsysteem ontwikkeld op basis van de Experience API standaard, dat elke gebruikersinteractie met milliseconde-precisie registreert in JSON-formaat.
+
+De uitkomsten van de technische controle en de beoordelingen van experts laten zien dat de applicatie een betrouwbare en stabiele simulatieomgeving biedt met een frequentie van 72 Hz. De verzamelde loggegevens geven instructeurs een ongeëvenaard objectief inzicht in de prestaties van hun studenten, waaronder de tijd tot de eerste schok en de nauwkeurigheid van de procedure. Hoewel het ontbreken van fysieke haptische weerstand motorische vaardigheden belemmert, toont XR SkillSim aan dat immersieve technologie een doeltreffende en datagedreven verbetering biedt in het verpleegkundig onderwijs. Dit vormt een stevig fundament voor de verdere digitalisering van medische vaardigheidstraining bij HOGENT.

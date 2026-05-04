@@ -1,2 +1,35 @@
-\chapter{Evaluatie}%
+\chapter{Evaluatie}
 \label{ch:evaluatie}
+
+In dit hoofdstuk wordt de evaluatiemethode van de XR SkillSim-applicatie toegelicht. Als Design Science-project ligt de focus op de technische verificatie van het artefact en de validatie van de gegenereerde data in relatie tot de gestelde eisen. Het doel is om aan te tonen dat de ontwikkelde architectuur in staat is om betrouwbare, objectieve trainingsdata te genereren die voldoen aan medische standaarden.
+
+\section{Technische Verificatie en Data-Integriteit}
+
+De primaire evaluatie richt zich op de accuraatheid van het dataloggingsysteem. In tegenstelling tot traditionele simulatie, waarbij observatie subjectief is, moet de XR SkillSim aantonen dat de digitale representatie van de handelingen 100 procent consistent is met de feitelijke interacties.
+
+\subsection{Validatie van de JSON-logdata}
+Er is een Data Verification Test uitgevoerd waarbij handmatige observaties van een scenario-uitvoering zijn vergeleken met de gegenereerde JSON-output. Hierbij werd specifiek gecontroleerd op:
+\begin{itemize}
+    \item Timestamp-precisie: Verificatie of de geregistreerde responseTime in de logs overeenkomt met de werkelijke verstreken tijd tussen twee interactie-events.
+    \item State Machine Consistentie: Controle of de context-variabele in de log-statements correct mee verandert met de actieve status van de simulatie.
+    \item Foutdetectie-ratio: Testen of kritieke fouten (zoals het overslaan van de ademhalingscontrole) consistent leiden tot een success: false statement in het logbestand.
+\end{itemize}
+
+\section{Methodologie voor Usability en Gebruikerservaring}
+Naast de technische correctheid is de kwaliteit van de interactie geëvalueerd. Voor een educatieve XR-applicatie is het essentieel dat de techniek het leerproces ondersteunt en niet hindert door fysieke ongemakken.
+
+\subsection{System Usability Scale (SUS) en Comfort}
+Hoewel grootschalige tests buiten de scope vallen, is het instrumentarium voor usability-meting geïntegreerd. De System Usability Scale wordt ingezet om de intuïtiviteit van de diegetische interface te toetsen. Hierbij ligt de focus op de vraag of studenten zonder uitgebreide technische instructie de medische materialen kunnen bedienen.
+
+Daarnaast is de Simulator Sickness Questionnaire (SSQ) als referentiekader gebruikt om te verifiëren of de technische optimalisaties, zoals de stabiele framerate en de Universal Render Pipeline integratie, effectief zijn in het minimaliseren van misselijkheid tijdens langdurig gebruik.
+
+\section{Expert-based Validatie en Scenario Walkthrough}
+
+Vanwege de specialistische aard van de applicatie is een alternatieve validatiestrategie toegepast via experts. Deze strategie is essentieel om de klinische relevantie van het technische artefact te waarborgen binnen een professionele zorgcontext.
+
+\subsection{Validatie door Co-promotor}
+%Moet nog gebeuren
+
+\subsection{Scenario Walkthrough en Logische Consistentie}
+
+Er is een volledige Scenario Walkthrough uitgevoerd waarbij alle mogelijke vertakkingen van de ScenarioManager handmatig zijn doorlopen. Door doelbewust foutieve handelingen en afwijkende sequenties uit te voeren, is geverifieerd of de State Machine correct reageert met de geprogrammeerde auditieve waarschuwingen en of deze afwijkingen accuraat worden opgeslagen in de JSON-logbestanden voor de gap-analyse achteraf. Deze technische stresstest garandeert de robuustheid van de software voor toekomstig gebruik in een onderwijscontext.

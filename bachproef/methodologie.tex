@@ -3,48 +3,45 @@
 
 \section{Onderzoeksopzet}
 
-Deze bachelorproef is opgebouwd volgens de principes van \emph{Design Science Research} (DSR) \autocite{Peffers2007,Hevner2004}. Deze aanpak past goed bij dit onderzoek, omdat de focus ligt op het ontwerpen, ontwikkelen en evalueren van een artefact dat een concreet probleem uit de praktijk aanpakt, namelijk het op een schaalbare en kwalitatieve manier ondersteunen van Basic Life Support (BLS)-training met behulp van Extended Reality.
+Deze bachelorproef is opgebouwd volgens de principes van Design Science Research (DSR) \autocite{Peffers2007,Hevner2004}. Deze methodologie is bij uitstek geschikt voor dit onderzoek, aangezien de focus ligt op het iteratief ontwerpen en technisch realiseren van een oplossing die een praktisch antwoord biedt op de beperkte schaalbaarheid van de huidige Basic Life Support (BLS)-training. Hoewel de ontwikkelde Proof of Concept zich specifiek toespitst op de reanimatieprocedure, is de onderliggende architectuur zodanig generiek ontworpen dat deze als uitbreidbaar platform kan dienen voor diverse medische handelingen. 
 
-Het DSR-proces wordt in deze studie doorlopen in verschillende stappen. Eerst wordt het probleem en de context van BLS-onderwijs geanalyseerd. Op basis daarvan worden doelstellingen en vereisten opgesteld, vertrekkend vanuit bestaande richtlijnen en noden uit het onderwijsveld. Vervolgens wordt de XR-toepassing ontworpen en uitgewerkt tot een Proof of Concept. Dit artefact wordt daarna getest in een realistische onderwijscontext en geëvalueerd op vlak van gebruiksvriendelijkheid, didactische meerwaarde en de kwaliteit van de gegenereerde data. Tot slot worden de resultaten geïnterpreteerd en gekoppeld aan de onderzoeksvragen.
-
-Het eindresultaat van dit onderzoek bestaat uit een werkende XR-applicatie en een onderbouwde evaluatie van de bruikbaarheid ervan binnen een verpleegkundige opleidingscontext.
+Binnen dit onderzoeksproces ligt de nadruk op de fase waarin de feitelijke oplossing wordt vormgegeven en technisch uitgewerkt. Eerst wordt de problematiek van het onderwijs in Basic Life Support in kaart gebracht via literatuuronderzoek. Vervolgens worden de functionele en technische vereisten gedefinieerd op basis van de geldende medische richtlijnen \autocite{ERC2025BLS}. Het zwaartepunt van dit onderzoek ligt bij de ontwikkeling van de Proof of Concept en de technische validatie van de achterliggende software-architectuur. Hierbij wordt aangetoond dat het systeem niet alleen voldoet aan de huidige medische standaarden, maar ook ontworpen is als een uitbreidbaar platform voor toekomstige handelingen.
 
 \section{Onderzoeksstrategie}
 
-In deze studie wordt gewerkt met een mixed-method aanpak, waarbij zowel kwantitatieve als kwalitatieve data worden verzameld. De kwantitatieve data bestaan uit loggegevens uit de XR-applicatie, zoals timing van handelingen, foutdetectie en scores uit gestandaardiseerde vragenlijsten. De kwalitatieve data komen uit observaties tijdens het gebruik en uit open feedback van studenten en experten. Door beide vormen van data te combineren kan zowel de objectieve performantie als de subjectieve ervaring van de XR-training in kaart worden gebracht.
+Gezien de beperkte tijdlijn voor empirisch onderzoek bij grote groepen gebruikers, hanteert deze studie een strategie die gericht is op expert-based validation en technical verification. In plaats van brede gebruikerstesten, wordt de effectiviteit van de applicatie geëvalueerd door de technische output te toetsen aan de theoretische kaders van de ERC- en AHA-richtlijnen \autocite{ERC2025BLS, AHA2025Guidelines}. Aanvullend wordt kwalitatieve feedback verzameld via een expert review met docenten om de didactische bruikbaarheid te garanderen.
 
-\section{Ontwerp en ontwikkeling van het artefact}
+\section{Ontwerp en ontwikkeling van de applicatie}
 
-De XR-toepassing wordt ontwikkeld voor de Meta Quest 3 en focust op het trainen van de reanimatievolgorde en het correct gebruik van een AED. Het ontwerp is gebaseerd op de actuele ERC- en AHA-richtlijnen, die vertaald worden naar een interactieve simulatie met duidelijke beslissingsmomenten.
+De XR-toepassing wordt ontwikkeld voor de Meta Quest 3 met Unity als engine \autocite{UnityDocs}. Het ontwerp vertaalt de procedurele stappen van de actuele richtlijnen naar een gelaagde Finite State Machine binnen de software. 
 
-De applicatie voorziet visuele en auditieve feedback en registreert automatisch de uitgevoerde handelingen en hun timing. De ontwikkeling gebeurt iteratief in Unity, waarbij tussentijdse versies worden getest om de interactie en gebruiksvriendelijkheid stap voor stap te verbeteren.
+De applicatie voorziet in visuele en auditieve feedback en is technisch zo geconfigureerd dat elke relevante interactie automatisch wordt geregistreerd in een gestructureerd JSON-formaat. De ontwikkeling volgt een iteratief proces waarbij de technische robuustheid en de nauwkeurigheid van de interactie-events centraal staan.
 
 \section{Evaluatie- en validatieopzet}
 
-De evaluatie van de Proof of Concept focust op drie aspecten: de gebruiksvriendelijkheid van de applicatie, de didactische bruikbaarheid en het realisme van de simulatie, en de kwaliteit van de data die de applicatie genereert voor feedback en evaluatie.
-
-De validatie gebeurt met een doelgerichte steekproef van studenten verpleegkunde en docenten of BLS-instructeurs. Studenten doorlopen individueel het XR-scenario. Nadien worden zowel objectieve logdata als subjectieve feedback verzameld. De docenten evalueren het artefact aanvullend vanuit een didactisch en inhoudelijk perspectief.
+Vanwege de beperkte scope voor een veldtest, wordt de evaluatie van de PoC toegespitst op drie fundamentele pijlers:
+\begin{itemize}
+    \item Procedurele Validiteit: In hoeverre komt de geprogrammeerde flow overeen met de officiële reanimatierichtlijnen?
+    \item Technische Performantie: Voldoet de applicatie aan de niet-functionele eisen zoals stabiele framerates en accurate datalogging?
+    \item Expert-beoordeling: Een kwalitatieve toetsing door vakexperts op het gebied van verpleegkunde en XR-interactie om de conceptuele meerwaarde te valideren.
+\end{itemize}
 
 \section{Meetinstrumenten en meetmethoden}
 
-De gebruiksvriendelijkheid wordt gemeten met de System Usability Scale (SUS), een gevalideerde vragenlijst met tien stellingen die gescoord worden op een vijfpuntsschaal. De resultaten worden volgens de standaardmethode omgerekend naar een totaalscore op honderd.
+Hoewel grootschalige kwantitatieve dataverzameling buiten de scope valt, zijn de volgende instrumenten geïntegreerd voor de evaluatie:
 
-Om mogelijke negatieve effecten van XR-gebruik te meten, wordt gebruikgemaakt van de Simulator Sickness Questionnaire van Kennedy et al. (1993). Deze meet symptomen zoals misselijkheid, visuele belasting en desoriëntatie en wordt onmiddellijk na de XR-sessie afgenomen.
+De XR-applicatie is voorzien van een geautomatiseerde logging-module. Deze registreert kritieke parameters zoals de tijd tot herkenning van de noodsituatie, de volgorde van handelingen en de correcte inzet van de AED. De validiteit van deze data wordt gecontroleerd via scenario walkthroughs door de onderzoeker en experten.
 
-De XR-applicatie registreert automatisch logdata over het gedrag van de gebruiker. Hierbij worden onder andere de tijd tot herkenning van de noodsituatie, de tijd tot starten van CPR, de tijd tot gebruik van de AED, de correcte volgorde van handelingen, het aantal kritieke fouten en de totale duur van het scenario bijgehouden. Deze data maken het mogelijk om de kwaliteit en richtlijnconformiteit van het handelen te analyseren.
-
-Daarnaast wordt de subjectieve ervaring van de gebruiker bevraagd via een korte vragenlijst met Likertschaal. De stellingen gaan onder andere over het ervaren realisme, de duidelijkheid van de opdrachten, de leerwaarde en de bereidheid om de applicatie opnieuw te gebruiken.
-
-Tijdens de testsessies worden ook observaties genoteerd, bijvoorbeeld over fouten, onduidelijkheden in de interface of problemen met interactie. Docenten en experten geven bijkomende kwalitatieve feedback over de didactische relevantie en medische correctheid van de toepassing.
+Voor de beoordeling van de gebruikerservaring wordt de System Usability Scale (SUS) en de Simulator Sickness Questionnaire als theoretisch kader gebruikt \autocite{SUSBrooke1996, Kennedy1993SSQ}. In deze bachelorproef worden deze instrumenten ingezet tijdens de expert reviews om de technische haalbaarheid en het comfort van de interface te toetsen.
 
 \section{Data-analyse}
 
-De data wordt geanalyseerd met een combinatie van eenvoudige statistiek en kwalitatieve analyse. De SUS- en Likertscores worden samengevat met gemiddelden en standaarddeviaties. De SSQ-scores worden berekend volgens de standaardmethode. De logdata worden per gebruiker en per stap in de BLS-flow bekeken om te zien waar het goed loopt en waar er problemen optreden. De open feedback wordt thematisch gegroepeerd en gelinkt aan de onderzoeksvragen.
+De analyse richt zich op de vergelijking tussen de feitelijke logdata van de gebruiker en de voorgeschreven medische protocollen. Hierbij wordt onderzocht in hoeverre de handelingen van de student afwijken van de ideale reanimatie-sequentie. De kwalitatieve feedback van de experten wordt vervolgens gebruikt om verbeterpunten voor zowel de software-architectuur als de didactische opbouw te identificeren. Tot slot worden de resultaten van de technische metingen, zoals de stabiliteit van de framerate, getoetst aan de vooraf gedefinieerde kwaliteitseisen om de technische betrouwbaarheid van het prototype te garanderen.
 
 \section{Ethische overwegingen}
 
-Alle deelnemers nemen vrijwillig deel en worden vooraf geïnformeerd over het doel en verloop van het onderzoek. De verzamelde data wordt anoniem verwerkt en enkel gebruikt in het kader van deze bachelorproef.
+Bij de expert reviews nemen de deelnemers vrijwillig deel. Hoewel er geen patiëntgegevens of gevoelige studentendata worden verwerkt, wordt alle feedback geanonimiseerd en uitsluitend gebruikt voor de optimalisatie van het artefact binnen deze bachelorproef.
 
 \section{Beperkingen van de studie}
 
-Omdat het hier gaat om een Proof of Concept zijn er enkele beperkingen. De steekproef is relatief klein en de applicatie meet geen fysieke parameters zoals compressiediepte of kracht. De focus ligt in deze studie bewust op de procedurele en cognitieve aspecten van BLS. Ondanks deze beperkingen geeft het onderzoek wel een duidelijke indicatie van de haalbaarheid en de meerwaarde van XR binnen het verpleegkundig onderwijs.
+Binnen de scope van deze bachelorproef is de evaluatie beperkt tot een Proof of Concept validatie. Vanwege tijdsbeperkingen is er geen uitgebreide gebruikerstest uitgevoerd bij een significante steekproef van studenten. Met deze resultaten laat men zien dat de toepassing technisch en procedureel mogelijk is. Het is echter geen sluitend bewijs dat de leerwinst op lange termijn zal zijn. Men wilde eerst duidelijk hebben of de architectuur van het systeem geschikt was voor een brede uitrol in de toekomst.
