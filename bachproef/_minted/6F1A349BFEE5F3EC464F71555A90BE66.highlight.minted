@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{private}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{DetectCompression}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{currentTime}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Time}\PYG{p}{.}\PYG{n}{time}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{timeDiff}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{currentTime}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{\PYGZus{}lastCompressionTime}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{timeDiff}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mf}{0.3f}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{\PYGZus{}currentCPM}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{60f}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{timeDiff}\PYG{p}{;}
+\PYG{+w}{        }\PYG{n}{\PYGZus{}lastCompressionTime}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{currentTime}\PYG{p}{;}
+
+\PYG{+w}{        }\PYG{n}{OnCompressionDetected}\PYG{o}{?.}\PYG{n}{Invoke}\PYG{p}{(}\PYG{n}{\PYGZus{}currentCPM}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{EvaluateCompression}\PYG{p}{(}\PYG{n}{\PYGZus{}currentCPM}\PYG{p}{);}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

@@ -1,0 +1,23 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}actor\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}name\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Trainee\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}mbox\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}mailto:trainee@poc.com\PYGZdq{}}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{},}
+\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}verb\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}http://adlnet.gov/expapi/verbs/initialized\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}display\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{l+s}{\PYGZdq{}en\PYGZhy{}US\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Initialized\PYGZdq{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{},}
+\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}object\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}http://example.com/activities/IntroState\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}definition\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{l+s}{\PYGZdq{}name\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{l+s}{\PYGZdq{}en\PYGZhy{}US\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Transitioned to IntroState\PYGZdq{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{},}
+\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}timestamp\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}2026\PYGZhy{}05\PYGZhy{}04T22:45:12Z\PYGZdq{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

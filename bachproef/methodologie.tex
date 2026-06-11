@@ -3,13 +3,15 @@
 
 \section{Onderzoeksopzet}
 
-Deze bachelorproef is opgebouwd volgens de principes van Design Science Research (DSR) \autocite{Peffers2007,Hevner2004}. Deze methodologie is bij uitstek geschikt voor dit onderzoek, aangezien de focus ligt op het iteratief ontwerpen en technisch realiseren van een oplossing die een praktisch antwoord biedt op de beperkte schaalbaarheid van de huidige Basic Life Support (BLS)-training. Hoewel de ontwikkelde Proof of Concept zich specifiek toespitst op de reanimatieprocedure, is de onderliggende architectuur zodanig generiek ontworpen dat deze als uitbreidbaar platform kan dienen voor diverse medische handelingen. 
+Deze bachelorproef is opgebouwd volgens de principes van Design Science Research (DSR) \autocite{Peffers2007,Hevner2004}. Deze methodologie is geschikt voor dit onderzoek omdat de focus ligt op het iteratief ontwerpen en technisch realiseren van een oplossing voor de beperkte schaalbaarheid van huidige Basic Life Support (BLS)-training. Hoewel de ontwikkelde proof of concept zich specifiek toespitst op de reanimatieprocedure, is de onderliggende architectuur generiek opgezet zodat toekomstige uitbreiding mogelijk blijft.
 
-Binnen dit onderzoeksproces ligt de nadruk op de fase waarin de feitelijke oplossing wordt vormgegeven en technisch uitgewerkt. Eerst wordt de problematiek van het onderwijs in Basic Life Support in kaart gebracht via literatuuronderzoek. Vervolgens worden de functionele en technische vereisten gedefinieerd op basis van de geldende medische richtlijnen \autocite{ERC2025BLS}. Het zwaartepunt van dit onderzoek ligt bij de ontwikkeling van de Proof of Concept en de technische validatie van de achterliggende software-architectuur. Hierbij wordt aangetoond dat het systeem niet alleen voldoet aan de huidige medische standaarden, maar ook ontworpen is als een uitbreidbaar platform voor toekomstige handelingen.
+Binnen dit onderzoeksproces ligt de nadruk op de fase waarin de oplossing technisch wordt uitgewerkt. Eerst wordt de problematiek van BLS-onderwijs in kaart gebracht via literatuuronderzoek. Vervolgens worden functionele en technische vereisten gedefinieerd op basis van actuele richtlijnen \autocite{ERC2025BLS}. Het zwaartepunt ligt bij de ontwikkeling van de PoC en de technische verificatie van de software-architectuur binnen de afgebakende scenescope.
 
 \section{Onderzoeksstrategie}
 
-Gezien de beperkte tijdlijn voor empirisch onderzoek bij grote groepen gebruikers, hanteert deze studie een strategie die gericht is op expert-based validation en technical verification. In plaats van brede gebruikerstesten, wordt de effectiviteit van de applicatie geëvalueerd door de technische output te toetsen aan de theoretische kaders van de ERC- en AHA-richtlijnen \autocite{ERC2025BLS, AHA2025Guidelines}. Aanvullend wordt kwalitatieve feedback verzameld via een expert review met docenten om de didactische bruikbaarheid te garanderen.
+Gezien de beperkte tijdlijn voor empirisch onderzoek bij grote groepen gebruikers hanteert deze studie een strategie die gericht is op technische verificatie. In plaats van brede gebruikerstesten wordt de werking van de applicatie getoetst aan de procedurele kaders van de ERC- en AHA-richtlijnen \autocite{ERC2025BLS, AHA2025Guidelines}.
+
+Binnen de effectieve uitvoering van deze bachelorproef werd externe expertreview niet gerealiseerd door tijdsbeperking. De uitgevoerde evaluatie steunt daarom op interne technische verificatie, gestructureerde scenario-walkthroughs en vergelijking van logoutput met vooraf gedefinieerde protocolstappen.
 
 \section{Ontwerp en ontwikkeling van de applicatie}
 
@@ -19,29 +21,26 @@ De applicatie voorziet in visuele en auditieve feedback en is technisch zo gecon
 
 \section{Evaluatie- en validatieopzet}
 
-Vanwege de beperkte scope voor een veldtest, wordt de evaluatie van de PoC toegespitst op drie fundamentele pijlers:
-\begin{itemize}
-    \item Procedurele Validiteit: In hoeverre komt de geprogrammeerde flow overeen met de officiële reanimatierichtlijnen?
-    \item Technische Performantie: Voldoet de applicatie aan de niet-functionele eisen zoals stabiele framerates en accurate datalogging?
-    \item Expert-beoordeling: Een kwalitatieve toetsing door vakexperts op het gebied van verpleegkunde en XR-interactie om de conceptuele meerwaarde te valideren.
-\end{itemize}
+Vanwege de beperkte scope voor een veldtest wordt de evaluatie van de PoC toegespitst op twee pijlers: procedurele validiteit, met de vraag in hoeverre de geprogrammeerde flow overeenkomt met de officiële reanimatierichtlijnen, en technische performantie, met aandacht voor niet-functionele eisen zoals stabiele runtime en consistente datalogging.
 
 \section{Meetinstrumenten en meetmethoden}
 
-Hoewel grootschalige kwantitatieve dataverzameling buiten de scope valt, zijn de volgende instrumenten geïntegreerd voor de evaluatie:
+Hoewel grootschalige kwantitatieve dataverzameling buiten de scope valt, zijn de volgende instrumenten gebruikt voor de evaluatie:
 
-De XR-applicatie is voorzien van een geautomatiseerde logging-module. Deze registreert kritieke parameters zoals de tijd tot herkenning van de noodsituatie, de volgorde van handelingen en de correcte inzet van de AED. De validiteit van deze data wordt gecontroleerd via scenario walkthroughs door de onderzoeker en experten.
+De XR-applicatie is voorzien van een geautomatiseerde logging-module. Deze registreert kritieke parameters zoals de volgorde van handelingen, de timing van stappen en de correcte inzet van de AED. De validiteit van deze data wordt gecontroleerd via scenario-walkthroughs door de onderzoeker.
 
-Voor de beoordeling van de gebruikerservaring wordt de System Usability Scale (SUS) en de Simulator Sickness Questionnaire als theoretisch kader gebruikt \autocite{SUSBrooke1996, Kennedy1993SSQ}. In deze bachelorproef worden deze instrumenten ingezet tijdens de expert reviews om de technische haalbaarheid en het comfort van de interface te toetsen.
+Voor de beoordeling van gebruikerservaring worden de System Usability Scale (SUS) en de Simulator Sickness Questionnaire (SSQ) als theoretisch kader gehanteerd \autocite{SUSBrooke1996, Kennedy1993SSQ}. Deze instrumenten structureren de opzet van een latere gebruikersevaluatie.
+
+Omdat er binnen de beschikbare tijd geen externe reviewronde werd uitgevoerd, worden SUS en SSQ in deze iteratie niet als empirische uitkomstmaten gerapporteerd.
 
 \section{Data-analyse}
 
-De analyse richt zich op de vergelijking tussen de feitelijke logdata van de gebruiker en de voorgeschreven medische protocollen. Hierbij wordt onderzocht in hoeverre de handelingen van de student afwijken van de ideale reanimatie-sequentie. De kwalitatieve feedback van de experten wordt vervolgens gebruikt om verbeterpunten voor zowel de software-architectuur als de didactische opbouw te identificeren. Tot slot worden de resultaten van de technische metingen, zoals de stabiliteit van de framerate, getoetst aan de vooraf gedefinieerde kwaliteitseisen om de technische betrouwbaarheid van het prototype te garanderen.
+De analyse richt zich op de vergelijking tussen feitelijke logdata en voorgeschreven medische protocolstappen. Hierbij wordt onderzocht in hoeverre uitgevoerde handelingen afwijken van de beoogde reanimatiesequentie. Tot slot worden resultaten van technische metingen, zoals runtime-stabiliteit, getoetst aan vooraf gedefinieerde kwaliteitseisen.
 
 \section{Ethische overwegingen}
 
-Bij de expert reviews nemen de deelnemers vrijwillig deel. Hoewel er geen patiëntgegevens of gevoelige studentendata worden verwerkt, wordt alle feedback geanonimiseerd en uitsluitend gebruikt voor de optimalisatie van het artefact binnen deze bachelorproef.
+Hoewel er binnen deze iteratie geen externe expertreviews werden uitgevoerd, blijft het ethisch kader ongewijzigd voor vervolgonderzoek. Bij toekomstige validaties nemen deelnemers vrijwillig deel en wordt feedback geanonimiseerd verwerkt. Daarnaast worden geen patiëntgegevens of gevoelige studentendata verzameld in de huidige PoC-evaluatie.
 
 \section{Beperkingen van de studie}
 
-Binnen de scope van deze bachelorproef is de evaluatie beperkt tot een Proof of Concept validatie. Vanwege tijdsbeperkingen is er geen uitgebreide gebruikerstest uitgevoerd bij een significante steekproef van studenten. Met deze resultaten laat men zien dat de toepassing technisch en procedureel mogelijk is. Het is echter geen sluitend bewijs dat de leerwinst op lange termijn zal zijn. Men wilde eerst duidelijk hebben of de architectuur van het systeem geschikt was voor een brede uitrol in de toekomst.
+Binnen de scope van deze bachelorproef is de evaluatie beperkt tot proof-of-conceptvalidatie. Door tijdsbeperkingen is geen uitgebreide gebruikerstest uitgevoerd bij een significante steekproef van studenten. De resultaten tonen technische en procedurele haalbaarheid, maar vormen geen sluitend bewijs voor leerwinst op lange termijn.

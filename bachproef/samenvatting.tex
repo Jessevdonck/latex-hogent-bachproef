@@ -2,37 +2,6 @@
 %% Samenvatting
 %%=============================================================================
 
-% TODO: De "abstract" of samenvatting is een kernachtige (~ 1 blz. voor een
-% thesis) synthese van het document.
-%
-% Een goede abstract biedt een kernachtig antwoord op volgende vragen:
-%
-% 1. Waarover gaat de bachelorproef?
-% 2. Waarom heb je er over geschreven?
-% 3. Hoe heb je het onderzoek uitgevoerd?
-% 4. Wat waren de resultaten? Wat blijkt uit je onderzoek?
-% 5. Wat betekenen je resultaten? Wat is de relevantie voor het werkveld?
-%
-% Daarom bestaat een abstract uit volgende componenten:
-%
-% - inleiding + kaderen thema
-% - probleemstelling
-% - (centrale) onderzoeksvraag
-% - onderzoeksdoelstelling
-% - methodologie
-% - resultaten (beperk tot de belangrijkste, relevant voor de onderzoeksvraag)
-% - conclusies, aanbevelingen, beperkingen
-%
-% LET OP! Een samenvatting is GEEN voorwoord!
-
-%%---------- Nederlandse samenvatting -----------------------------------------
-%
-% TODO: Als je je bachelorproef in het Engels schrijft, moet je eerst een
-% Nederlandse samenvatting invoegen. Haal daarvoor onderstaande code uit
-% commentaar.
-% Wie zijn bachelorproef in het Nederlands schrijft, kan dit negeren, de inhoud
-% wordt niet in het document ingevoegd.
-
 \selectlanguage{dutch}
 
 %%=============================================================================
@@ -41,11 +10,11 @@
 
 \chapter*{Samenvatting}
 
-Deze bachelorproef gaat over de ontwikkeling van XR SkillSim, een Extended Reality applicatie voor de Meta Quest 3, die is ontwikkeld om studenten verpleegkunde te helpen bij het leren van Basic Life Support en het inzetten van een Automated External Defibrillator. In het huidige zorgonderwijs vormt de schaalbaarheid en de objectieve beoordeling van procedurele vaardigheden een grote uitdaging. Traditionele simulatielaboratoria zijn vaak duur en hebben een beperkte logistiek, waardoor studenten niet genoeg mogelijkheden hebben om kritieke besluitvormingsprocessen onder realistische druk te oefenen.
+Deze bachelorproef behandelt de ontwikkeling van XR SkillSim, een Extended Reality-applicatie voor Meta Quest 3, bedoeld voor het oefenen van Basic Life Support en het inzetten van een Automated External Defibrillator binnen de opleiding verpleegkunde. In het huidige zorgonderwijs vormen schaalbaarheid en herhaalbaarheid van oefenmomenten een blijvende uitdaging. Traditionele simulatielaboratoria zijn logistiek en organisatorisch beperkt, waardoor studenten minder vaak kunnen oefenen op procedurele besluitvorming onder tijdsdruk.
 
 
-De centrale onderzoeksvraag richt zich op de mate waarin een XR-applicatie een veilige, bruikbare leeromgeving kan bieden waarbij objectieve data over de uitvoering wordt ingezet voor feedback en evaluatie. Gebruikmakend van de Design Science Research-methodologie is een Proof of Concept ontwikkeld met de Unity-engine. De technische architectuur is gebaseerd op een modulair State Design Pattern en een event-driven systeem, wat de applicatie schaalbaar maakt voor toekomstige klinische scenario's binnen de beoogde HOGENT XR Academy.
+De centrale onderzoeksvraag richt zich op de mate waarin een XR-applicatie een veilige en bruikbare leeromgeving kan bieden, met objectieve logdata als ondersteuning voor feedback en evaluatie. Op basis van Design Science Research is een proof of concept ontwikkeld in Unity, met een modulaire state-machinearchitectuur en event-driven communicatie.
 
-Belangrijke technische realisaties omvatten de implementatie van custom velocity-based interactoren voor de bewustzijnscontrole en een ruimtelijk validatiesysteem voor de correcte plaatsing van AED-elektroden. Daarnaast is een geavanceerd dataloggingsysteem ontwikkeld op basis van de Experience API standaard, dat elke gebruikersinteractie met milliseconde-precisie registreert in JSON-formaat.
+Belangrijke technische realisaties zijn de implementatie van procedurele scenario-states, een velocity-based CPRInteractor voor compressiedetectie en een ruimtelijk validatiesysteem voor correcte plaatsing van AED-elektroden. Daarnaast is een dataloggingsysteem uitgewerkt op basis van een xAPI-geinspireerde structuur die interacties met tijdstempels wegschrijft in JSON-formaat.
 
-De uitkomsten van de technische controle en de beoordelingen van experts laten zien dat de applicatie een betrouwbare en stabiele simulatieomgeving biedt met een frequentie van 72 Hz. De verzamelde loggegevens geven instructeurs een ongeëvenaard objectief inzicht in de prestaties van hun studenten, waaronder de tijd tot de eerste schok en de nauwkeurigheid van de procedure. Hoewel het ontbreken van fysieke haptische weerstand motorische vaardigheden belemmert, toont XR SkillSim aan dat immersieve technologie een doeltreffende en datagedreven verbetering biedt in het verpleegkundig onderwijs. Dit vormt een stevig fundament voor de verdere digitalisering van medische vaardigheidstraining bij HOGENT.
+De evaluatie in deze iteratie is beperkt tot interne technische verificatie en scenario-walkthroughs binnen TrainingLobby en MedicalTrainingScene. De resultaten tonen aan dat de geobserveerde handelingen in deze uitgevoerde walkthroughs overeenkwamen met de geregistreerde eventvolgorde in de logs. De verzamelde logdata ondersteunen daarmee vooral analyse van volgorde, timing, AED-stappen en foutdetectie. Er is geen brede studententest uitgevoerd, geen externe expertvalidatie afgerond en geen empirische SUS- of SSQ-score verzameld. Evenmin is compressiediepte als volledige psychomotorische kwaliteitsmaat gemeten. XR SkillSim toont daardoor in deze fase vooral technische en procedurele haalbaarheid, en vormt een basis voor vervolgonderzoek met bredere didactische en klinische validatie.

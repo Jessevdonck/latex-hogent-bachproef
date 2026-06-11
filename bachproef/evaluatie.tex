@@ -1,35 +1,63 @@
 \chapter{Evaluatie}
 \label{ch:evaluatie}
 
-In dit hoofdstuk wordt de evaluatiemethode van de XR SkillSim-applicatie toegelicht. Als Design Science-project ligt de focus op de technische verificatie van het artefact en de validatie van de gegenereerde data in relatie tot de gestelde eisen. Het doel is om aan te tonen dat de ontwikkelde architectuur in staat is om betrouwbare, objectieve trainingsdata te genereren die voldoen aan medische standaarden.
+In dit hoofdstuk wordt de evaluatiemethode van de XR SkillSim-applicatie toegelicht. Als Design Science-project ligt de focus op technische verificatie van het artefact en op validatie van de gegenereerde data in relatie tot de gestelde eisen. Het doel is om na te gaan in welke mate de ontwikkelde architectuur procedurele stappen correct registreert binnen de afgebakende PoC-scope.
 
 \section{Technische Verificatie en Data-Integriteit}
 
-De primaire evaluatie richt zich op de accuraatheid van het dataloggingsysteem. In tegenstelling tot traditionele simulatie, waarbij observatie subjectief is, moet de XR SkillSim aantonen dat de digitale representatie van de handelingen 100 procent consistent is met de feitelijke interacties.
+De primaire evaluatie richt zich op de accuraatheid van het dataloggingsysteem. In tegenstelling tot louter observatie moet de digitale representatie van handelingen voldoende overeenkomen met feitelijke interacties om procedurele feedback mogelijk te maken.
 
 \subsection{Validatie van de JSON-logdata}
-Er is een Data Verification Test uitgevoerd waarbij handmatige observaties van een scenario-uitvoering zijn vergeleken met de gegenereerde JSON-output. Hierbij werd specifiek gecontroleerd op:
-\begin{itemize}
-    \item Timestamp-precisie: Verificatie of de geregistreerde responseTime in de logs overeenkomt met de werkelijke verstreken tijd tussen twee interactie-events.
-    \item State Machine Consistentie: Controle of de context-variabele in de log-statements correct mee verandert met de actieve status van de simulatie.
-    \item Foutdetectie-ratio: Testen of kritieke fouten (zoals het overslaan van de ademhalingscontrole) consistent leiden tot een success: false statement in het logbestand.
-\end{itemize}
+Er is een Data Verification Test uitgevoerd waarbij handmatige observaties van scenario-uitvoeringen zijn vergeleken met de gegenereerde JSON-output. Hierbij werd specifiek gecontroleerd op timestamp-consistentie, met verificatie of UTC-timestamps chronologisch overeenkomen met de geobserveerde eventvolgorde, op event-stateconsistentie, met controle of statewissels, succesvolle acties en foutacties correct gemapt zijn naar respectievelijk initialized, completed en failed, en op foutdetectie, met toetsing of kritieke fouten zoals ongewenste patiëntaanraking tijdens AED-fases leiden tot result.success = false in de logoutput.
 
-\section{Methodologie voor Usability en Gebruikerservaring}
-Naast de technische correctheid is de kwaliteit van de interactie geëvalueerd. Voor een educatieve XR-applicatie is het essentieel dat de techniek het leerproces ondersteunt en niet hindert door fysieke ongemakken.
+\section{Usability en gebruikerservaring als vervolgstap}
+Naast technische correctheid is ook de kwaliteit van de interactie relevant. Voor een educatieve XR-applicatie moet de techniek het leerproces ondersteunen en niet hinderen door fysieke ongemakken.
 
 \subsection{System Usability Scale (SUS) en Comfort}
-Hoewel grootschalige tests buiten de scope vallen, is het instrumentarium voor usability-meting geïntegreerd. De System Usability Scale wordt ingezet om de intuïtiviteit van de diegetische interface te toetsen. Hierbij ligt de focus op de vraag of studenten zonder uitgebreide technische instructie de medische materialen kunnen bedienen.
+SUS en SSQ worden in deze bachelorproef gebruikt als methodologisch referentiekader voor een volgende evaluatiefase met gebruikers.
 
-Daarnaast is de Simulator Sickness Questionnaire (SSQ) als referentiekader gebruikt om te verifiëren of de technische optimalisaties, zoals de stabiele framerate en de Universal Render Pipeline integratie, effectief zijn in het minimaliseren van misselijkheid tijdens langdurig gebruik.
+In de huidige iteratie zijn echter geen gevalideerde SUS- of SSQ-scores verzameld. Daarom worden hierover geen kwantitatieve uitspraken gedaan.
 
-\section{Expert-based Validatie en Scenario Walkthrough}
+\section{Scenario Walkthrough binnen afgebakende scope}
 
-Vanwege de specialistische aard van de applicatie is een alternatieve validatiestrategie toegepast via experts. Deze strategie is essentieel om de klinische relevantie van het technische artefact te waarborgen binnen een professionele zorgcontext.
+De effectieve evaluatie in deze bachelorproef steunt op interne technische walkthroughs binnen de operationele scenes TrainingLobby en MedicalTrainingScene.
 
-\subsection{Validatie door Co-promotor}
-%Moet nog gebeuren
+\subsection{Externe validatie}
+De geplande externe validatie door de co-promotor is binnen de tijdsgrenzen van deze bachelorproef niet uitgevoerd. Daardoor toont deze iteratie geen externe expertconsensus over didactische effectiviteit. Externe validatie blijft een expliciete vervolgstap.
 
 \subsection{Scenario Walkthrough en Logische Consistentie}
 
-Er is een volledige Scenario Walkthrough uitgevoerd waarbij alle mogelijke vertakkingen van de ScenarioManager handmatig zijn doorlopen. Door doelbewust foutieve handelingen en afwijkende sequenties uit te voeren, is geverifieerd of de State Machine correct reageert met de geprogrammeerde auditieve waarschuwingen en of deze afwijkingen accuraat worden opgeslagen in de JSON-logbestanden voor de gap-analyse achteraf. Deze technische stresstest garandeert de robuustheid van de software voor toekomstig gebruik in een onderwijscontext.
+Er zijn gestructureerde scenario-walkthroughs uitgevoerd binnen TrainingLobby en MedicalTrainingScene. Daarbij zijn zowel correcte als foutieve sequenties doorlopen om na te gaan of de state machine de verwachte overgangen triggert, of foutafhandeling wordt geactiveerd op kritieke momenten en of de overeenkomstige events in de JSON-logs terechtkomen. Scripts en scenecomponenten buiten deze twee scenes zijn niet meegenomen in de evaluatie.
+
+De uitgevoerde walkthroughs tonen dat de geobserveerde eventvolgorde overeenkwam met de logvolgorde voor de geteste paden. Deze vaststelling ondersteunt technische en procedurele haalbaarheid, maar mag niet worden geïnterpreteerd als bewijs van didactische effectiviteit of klinische leerwinst.
+
+\section{Validiteit en betrouwbaarheid van de evaluatie}
+
+Om de resultaten van deze bachelorproef correct te interpreteren, is een expliciete reflectie op validiteit en betrouwbaarheid noodzakelijk.
+
+\subsection{Interne validiteit}
+
+De PoC modelleert de BLS-procedure via een deterministische state machine. Daardoor is de volgorde van stappen reproduceerbaar en controleerbaar, wat de interne validiteit van flow-gebaseerde metingen versterkt. Tegelijk beperken vereenvoudigde validatieregels (zoals taggebaseerde AED-validatie) de medische granulariteit van sommige uitkomstmaten.
+
+\subsection{Externe validiteit}
+
+De implementatie is geoptimaliseerd voor Meta Quest 3 en een specifieke onderwijscontext. Generalisatie naar andere hardwareprofielen, curricula of gebruikersgroepen vereist bijkomende verificatie van interactieparameters zoals snelheidsdrempels en timingvensters.
+
+\subsection{Betrouwbaarheid en reproduceerbaarheid}
+
+De event-gedreven architectuur en uniforme logstructuur verhogen de reproduceerbaarheid. Door eventtype, timestamp en success/failure-signalen systematisch op te slaan, kunnen analyses herhaald worden op dezelfde datasets. Voor hogere reproduceerbaarheid op onderzoeksniveau zijn bijkomende contextvelden (buildversie, scenarioversie, parameterconfiguratie) aanbevolen.
+
+\subsection{Verdedigingskader van de resultaten}
+
+De resultaten van deze bachelorproef moeten gelezen worden als een technische haalbaarheidsvalidatie van een PoC, niet als een effectstudie naar leerwinst. De kernbijdrage ligt in het aantonen dat procedurele stappen binnen de afgebakende scenescope reproduceerbaar kunnen worden afgedwongen en gelogd. Uitspraken over didactische effectiviteit, gebruikservaring op populatieniveau en klinische transfer blijven buiten de empirische reikwijdte van deze iteratie en vereisen een afzonderlijke vervolgstudie met bredere steekproeven en formele meetprotocollen.
+
+\section{Aanbevolen uitbouw van de evaluatie}
+
+Om de evaluatie op bachelorproefniveau te versterken, wordt in de eerste plaats formele transitievalidatie aanbevolen, waarbij states en transities als expliciet toestandsmodel worden gemodelleerd en automatisch gecontroleerd op onbereikbare of inconsistente paden. Daarnaast is een rijkere metrieklaag aangewezen, met registratie van state-dwell time, tijd tot eerste correcte actie, herstelduur na fout en aantal prompts per fase. Verder moet de medische nauwkeurigheid van de meetset worden verhoogd door compressiediepte- en ritmecontrole te evalueren en AED-oriëntatievalidatie op te nemen. Ook de xAPI-conformiteit verdient uitbouw via contextvelden zoals session-id, moduleversie en protocolversie, aangevuld met validatie van export naar een externe Learning Record Store. Tot slot is een experimentele vergelijking tussen minstens twee feedbackstrategieën, bijvoorbeeld statisch versus adaptief, noodzakelijk met passende statistische analyse.
+
+\subsection{Gefaseerde roadmap met meetbare criteria}
+
+Om bovenstaande uitbouw haalbaar te maken binnen de looptijd van de bachelorproef, is een gefaseerde aanpak aangewezen:
+In fase 1 ligt de nadruk op meetinfrastructuur door logging uit te breiden met session-id, scenarioversie en state-dwell times; het succescriterium is dat minimaal 95\% van de states volledige timing- en resultregistratie bevat. In fase 2 verschuift de focus naar medische validatie met implementatie en test van diepte- en ritme-evaluatie voor CPR en oriëntatiecontrole voor AED; het succescriterium is automatische classificatie van correcte en foutieve handelingen op basis van expliciete drempelwaarden. In fase 3 volgt de experimentele evaluatie met KPI-analyse in een vergelijkende studie; het succescriterium is rapportering van effectgroottes en betrouwbaarheidsintervallen per KPI.
+
+Deze fasering vertaalt de huidige PoC naar een evaluatiekader dat zowel technisch als methodologisch onderbouwd is.

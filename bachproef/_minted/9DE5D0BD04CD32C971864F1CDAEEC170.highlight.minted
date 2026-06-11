@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{public}\PYG{+w}{ }\PYG{k}{interface}\PYG{+w}{ }\PYG{n}{IScenarioState}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k+kt}{string}\PYG{+w}{ }\PYG{n}{StateName}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{k}{get}\PYG{p}{;}\PYG{+w}{ }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{Enter}\PYG{p}{();}
+\PYG{+w}{    }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{Update}\PYG{p}{();}
+\PYG{+w}{    }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{Exit}\PYG{p}{();}
+\PYG{+w}{    }\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n}{IsCompleted}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{k}{get}\PYG{p}{;}\PYG{+w}{ }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

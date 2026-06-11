@@ -9,78 +9,87 @@
 % Info over de opleiding
 \course{Bachelorproef}
 \studyprogramme{toegepaste informatica}
-\academicyear{2022-2023}
+\academicyear{2025-2026}
 \institution{Hogeschool Gent, Valentin Vaerwyckweg 1, 9000 Gent}
 
 % Info over de bachelorproef
-\title{Titel van uw bachelorproef}
-\subtitle{Ondertitel (eventueel)}
-\author{Voornaam Naam}
-\email{voornaam.familienaam@student.hogent.be}
-\supervisor{Voornaam Naam}
-\cosupervisor{Voornaam Naam (Bedrijf)}
+\title{XR SkillSim: nieuwe medische XR-oefeningen bouwen in vier stappen}
+\subtitle{Casus: BLS- en AED-training voor verpleegkunde op Meta Quest 3}
+\author{Jesse Vaerendonck}
+\email{jesse.vaerendonck@student.hogent.be}
+\supervisor{Dhr. J. Van Herreweghe}
+\cosupervisor{Dhr. T. Cuelenaere}
 
 % Indien ingevuld, wordt deze informatie toegevoegd aan het einde van de
 % abstract. Zet in commentaar als je dit niet wilt.
-\specialisation{Systeem- en Netwerkbeheer}
-\keywords{Lambda-calculus, Scheme}
-\projectrepo{https://github.com/user/repo}
+%\specialisation{Mobile \& Enterprise Development} % TODO: pas aan naar jouw afstudeerrichting
+\keywords{Extended Reality, Unity, state machine, simulatietraining, Meta Quest 3}
+%\projectrepo{https://github.com/user/repo} % TODO: vul je repo-URL in of laat in commentaar
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-It's only a model.
-You don't vote for kings. Who's that then? We found them. Ni! Ni! Ni! Ni!
-The nose? On second thoughts, let's not go there. It is a silly place. Bloody Peasant! And the hat. She's a witch! Where'd you get the coconuts?
+Zorgopleidingen willen vaardigheden schaalbaar en herhaalbaar laten oefenen, maar XR-oefeningen worden vaak ad hoc gebouwd en zijn daardoor moeilijk uit te breiden. Deze bachelorproef toont hoe een modulaire architectuur het mogelijk maakt om medische XR-trainingsoefeningen systematisch op te bouwen, met objectieve logdata als basis voor feedback. Als bewijs werd een volledige reanimatieoefening (BLS en AED) gerealiseerd op Meta Quest 3.
 \end{abstract}
 
 \begin{multicols}{2} % This is how many columns your poster will be broken into, a portrait poster is generally split into 2 columns
 
-\section{Introductie}
+\section{Inleiding}
 
-Be quiet! Found them? In Mercia?! The coconut's tropical! But you are dressed as one… Well, what do you want? Knights of Ni, we are but simple travelers who seek the enchanter who lives beyond these woods.
+Verpleegkundestudenten moeten procedures zoals reanimatie veilig, herhaaldelijk en scenario-gericht kunnen inoefenen. Simulatielaboratoria zijn echter logistiek beperkt: elk oefenmoment vraagt planning, infrastructuur en docentcapaciteit, waardoor studenten minder vaak kunnen oefenen op besluitvorming onder tijdsdruk. Extended Reality maakt herhaalbaar en schaalbaar oefenen mogelijk, maar in de praktijk wordt elke XR-oefening vaak ad hoc en vanaf nul gebouwd. Dat is duur, foutgevoelig en moeilijk uit te breiden naar nieuwe scenario's.
 
-Well, what do you want? It's only a model. Camelot! We found them. We shall say `Ni' again to you, if you do not appease us.
+Deze bachelorproef verlegt daarom de focus van één oefening naar de onderliggende bouwstenen: hoe ontwerp je een XR-omgeving waarin nieuwe medische trainingsscenario's systematisch aangemaakt, gevalideerd en gelogd kunnen worden? De centrale onderzoeksvraag luidt: in hoeverre biedt zo'n XR-applicatie een veilige en bruikbare leeromgeving, waarbij objectieve data over de uitvoering inzetbaar zijn voor feedback en evaluatie? Een richtlijnconforme reanimatieoefening (BLS en AED) dient als casus om de aanpak aan te tonen.
 
-The nose? Shut up! Burn her! I am your king. You don't vote for kings.
+\section{Methode}
 
-You can't expect to wield supreme power just `cause some watery tart threw a sword at you! Well, we did do the nose. I don't want to talk to you no more, you empty-headed animal food trough water! I fart in your general direction! Your mother was a hamster and your father smelt of elderberries! Now leave before I am forced to taunt you a second time!
+Het onderzoek volgt Design Science Research: een artefact wordt iteratief ontworpen, ontwikkeld en geëvalueerd in functie van een concreet praktijkprobleem. Uit literatuur en de ERC-richtlijnen werden toetsbare requirements afgeleid, vertaald naar een ontwerp en gerealiseerd als proof of concept.
 
-Why do you think that she is a witch? We want a shrubbery!! I don't want to talk to you no more, you empty-headed animal food trough water! I fart in your general direction! Your mother was a hamster and your father smelt of elderberries! Now leave before I am forced to taunt you a second time!
+De technische realisatie gebeurde in Unity 6 met OpenXR, de Meta XR Core SDK, de Meta Interaction SDK en de XR Interaction Toolkit, standalone op de Meta Quest 3. De evaluatie bestond uit interne technische verificatie en scenario-walkthroughs, waarbij de uitgevoerde handelingen werden vergeleken met de geregistreerde logdata.
 
-\section{Experimenten}
+\section{Resultaten}
 
-A newt? Camelot! Why? No, no, no! Yes, yes. A bit. But she's got a wart.
-
-Shut up! I dunno. Must be a king. Who's that then? Look, my liege! On second thoughts, let's not go there. It is a silly place.
-
-Shut up! Will you shut up?! No, no, no! Yes, yes. A bit. But she's got a wart. He hasn't got shit all over him. It's only a model. It's only a model.
-
-Bring her forward! I don't want to talk to you no more, you empty-headed animal food trough water! I fart in your general direction! Your mother was a hamster and your father smelt of elderberries! Now leave 
-
-\section{Sectie met figuur}
-
-De {\LaTeX} figure-omgeving bepaalt zelf waar een afbeelding komt en dat is meestal niet op de plek in de tekst waar de figure-omgeving gedefinieerd wordt. Als je wilt forceren dat afbeeldingen toch in de flow van de tekst blijven, dan kan je dat zoals hieronder:
+De architectuur steunt op drie herbruikbare lagen: een state machine die elk scenario opdeelt in procedurele stappen, event-driven communicatie die componenten ontkoppelt, en een loggingsysteem (xAPI-geïnspireerd, JSON met tijdstempels) dat elke interactie automatisch registreert.
 
 \begin{center}
   \captionsetup{type=figure}
-  \includegraphics[width=1.0\linewidth]{grail}
-  \captionof{figure}{He hasn't got shit all over him. The nose? Where'd you get the coconuts? What do you mean? We shall say `Ni' again to you, if you do not appease us}
+  \includegraphics[width=1.0\linewidth]{architecture}
+  \captionof{figure}{Modulaire systeemarchitectuur met event-driven communicatie.}
 \end{center}
 
-Let er wel op dat dit tot problemen met bladschikking kan leiden.
+Daarbovenop volgt het aanmaken van een nieuwe oefening steeds hetzelfde stramien van vier stappen:
 
-\section{Conclusies}
+\begin{enumerate}
+  \item de procedure opdelen in scenario-states met overgangsvoorwaarden;
+  \item interactiezones (colliders) en interactors koppelen aan de relevante objecten;
+  \item validatieregels definiëren per stap (volgorde, timing, plaatsing);
+  \item logging gebeurt automatisch via de event-laag.
+\end{enumerate}
 
-Don't underestimate the Force. Oh God, my uncle. How am I ever gonna explain this? I suggest you try it again, Luke. This time, let go your conscious self and act on instinct. Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force.
+\begin{center}
+  \captionsetup{type=figure}
+  \includegraphics[width=1.0\linewidth]{ScenarioFlowState}
+  \captionof{figure}{Scenarioflow: elke stap in de procedure is een afzonderlijke state.}
+\end{center}
 
-\section{Toekomstig onderzoek}
+Met dit stramien werd de casus gebouwd: een richtlijnconforme reanimatieoefening met alarmeren, compressies, AED aanbrengen en veilig schokken. Herbruikbare componenten zoals een velocity-based CPRInteractor (compressiedetectie) en een ruimtelijk validatiesysteem voor AED-elektroden werden toegevoegd. In de walkthroughs kwam de gelogde eventvolgorde telkens overeen met de uitgevoerde handelingen, zodat volgorde, timing en fouten objectief analyseerbaar zijn.
 
-I care. So, what do you think of her, Han? No! Alderaan is peaceful. We have no weapons. You can't possibly… I have traced the Rebel spies to her. Now she is my only link to finding their secret base.
+\section{Discussie en besluit}
 
-Kid, I've flown from one side of this galaxy to the other. I've seen a lot of strange stuff, but I've never seen anything to make me believe there's one all-powerful Force controlling everything. There's no mystical energy field that controls my destiny. It's all a lot of simple tricks and nonsense. You are a part of the Rebel Alliance and a traitor! Take her away! 
+De meerwaarde van dit onderzoek is dat XR-trainingsoefeningen niet langer ad hoc gebouwd hoeven te worden: de modulaire architectuur maakt nieuwe scenario's systematisch aanmaakbaar, met objectieve procesdata als automatisch bijproduct voor feedback en evaluatie. De BLS-casus bewijst de technische en procedurele haalbaarheid op betaalbare standalone hardware.
+
+Zonder fysieke tegendruk blijft de applicatie wel een procedureel en cognitief oefeninstrument, geen vervanger van fysieke vaardigheidstraining. Brede gebruikerstests met studenten en externe experten vormen de volgende stap, samen met multi-user oefeningen, hybride simulatie met fysieke manikins en dashboarding voor docenten. Zo groeit XR SkillSim uit tot fundament voor de HOGENT XR Academy.
+
+\section{Referenties}
+
+{\small
+Peffers, K. e.a. (2007). A Design Science Research Methodology for Information Systems Research. \textit{Journal of MIS}, 24(3).
+
+European Resuscitation Council (2025). \textit{ERC Guidelines: Basic Life Support}.
+
+Greif, R. e.a. (2023). ILCOR: Immersive technologies in resuscitation education.
+}
 
 \end{multicols}
 \end{document}

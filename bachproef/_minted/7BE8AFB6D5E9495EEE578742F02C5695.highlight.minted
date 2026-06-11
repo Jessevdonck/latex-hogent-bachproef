@@ -1,9 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{// Controleer of de beweging krachtig genoeg is}
-\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{handVelocity}\PYG{p}{.}\PYG{n}{magnitude}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{velocityThreshold}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Vector3}\PYG{p}{.}\PYG{n}{Dot}\PYG{p}{(}\PYG{n}{handVelocity}\PYG{p}{.}\PYG{n}{normalized}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{lastVelocityDir}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.5f}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{        }\PYG{n}{shakeCount}\PYG{o}{++}\PYG{p}{;}
-\PYG{+w}{        }\PYG{n}{lastVelocityDir}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{handVelocity}\PYG{p}{.}\PYG{n}{normalized}\PYG{p}{;}
-\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
-\PYG{p}{\PYGZcb{}}
-\end{MintedVerbatim}

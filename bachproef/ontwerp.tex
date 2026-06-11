@@ -1,68 +1,56 @@
 \chapter{Ontwerp}%
 \label{ch:ontwerp}
 
-Het ontwerp van de XR-applicatie vormt de fundamentele brug tussen de medische handelingen en de technologische realisatie op de Meta Quest 3. Om de onderzoeksvraag te beantwoorden met betrekking tot de technische ondersteuning van realistische medische simulaties, is gekozen voor een gelaagd systeemontwerp dat de focus legt op accuraatheid en didactische bruikbaarheid. Het ontwerp overstijgt een loutere visuele representatie door een rigide logische structuur te creëren die elke gebruikersinteractie toetst aan de geldende ERC-richtlijnen \cite{ERC2025BLS}.
+Het ontwerp van de XR-applicatie vormt de fundamentele brug tussen de medische handelingen en de technologische realisatie op de Meta Quest 3. Om de onderzoeksvraag te beantwoorden met betrekking tot de technische ondersteuning van medische simulaties, is gekozen voor een schaalbaar en modulair systeemontwerp dat de focus legt op een flexibele software-architectuur en didactische bruikbaarheid. Het ontwerp overstijgt een loutere visuele representatie door een uitbreidbare logische structuur te creëren waarop in de toekomst eenvoudig nieuwe klinische scenario's kunnen worden aangesloten binnen de beoogde 'HOGENT XR Academy' \cite{Radianti2020VRHE}.
 
-\section{Systeemarchitectuur en scenariomanagement}
-De interne scènestructuur is zodanig ontworpen dat de visuele assets en de logische interactiecomponenten strikt gescheiden blijven. Dit bevordert de schaalbaarheid van het platform, waardoor het mogelijk wordt om in de toekomst met minimale aanpassingen nieuwe klinische omgevingen te laden zonder de kernlogica van de Basic Life Support-procedure te verstoren. Deze modulaire opbouw is essentieel voor de gewenste uitbreidbaarheid naar een bredere 'HOGENT XR Academy' \cite{Radianti2020VRHE}.
+\section{Modulaire XR-trainingsarchitectuur en scenariomanagement}
 
-De kern van de applicatie wordt aangestuurd door een centrale ScenarioManager. Deze wordt gebruikt als de orchestrator die de huidige status van de medische procedure bewaakt. Elke fase van het BLS-algoritme is gedefinieerd als een unieke \emph{State}-klasse binnen het \emph{State Pattern}. Dit patroon zorgt ervoor dat de logica voor specifieke handelingen, zoals de bewustzijnscontrole of het voorbereiden van de AED, volledig is ingekapseld in afzonderlijke objecten.
+De interne scènestructuur is zodanig ontworpen dat de visuele assets en de logische interactiecomponenten strikt gescheiden blijven. Dit bevordert de schaalbaarheid van het platform, waardoor het mogelijk wordt om in de toekomst met minimale aanpassingen nieuwe klinische omgevingen en handelingen te laden zonder de kernlogica van het basissysteem te verstoren. Deze modulaire opbouw is essentieel voor de gewenste uitbreidbaarheid naar een bredere HOGENT XR Academy \cite{Radianti2020VRHE}.
 
-De overgangen tussen deze statussen worden getriggerd door een globaal EventManager systeem. Wanneer een gebruiker een interactie voltooit, vuurt de betreffende interactor een event af. De actieve State luistert naar deze events en valideert of de interactie conform is aan de medische richtlijnen in de huidige context. Deze ontkoppeling is cruciaal voor de uitbreidbaarheid. Dit is omdat om een nieuwe medische handeling toe te voegen, hoeft enkel een nieuwe State-klasse te worden geïmplementeerd die reageert op bestaande of nieuwe interactie-events.
+Binnen de gerealiseerde PoC is de effectieve runtime-scope echter afgebakend tot twee operationele scenes: TrainingLobby en MedicalTrainingScene. Andere scenes in het project zijn in deze iteratie niet meegenomen in de evaluatie van functionaliteit of leerlogica.
+
+De kern van de applicatie wordt aangestuurd door een centrale TrainingManager. Deze manager fungeert als een Singleton en is verantwoordelijk voor het initialiseren en inladen van een specifieke trainingsmodule. Om de uitbreidbaarheid te garanderen, erven alle medische scenario's over van een generieke basisklasse genaamd TrainingModuleBase. 
+
+Binnen een actieve module wordt de procedurele flow beheerd door een ScenarioController. Deze controller doorloopt opeenvolgende scenario-states om de stappen van de gebruiker logisch te sturen. Voor deze PoC is één specifieke module uitgewerkt, namelijk de AED\_CPR\_Module. De overgangen tussen de statussen binnen deze module worden getriggerd door een event-driven systeem. Wanneer een gebruiker een interactie voltooit, zoals het voltooien van een reanimatiecyclus, vuurt de actieve interactor een event af, waarna de ScenarioController de status valideert en de transitie naar de volgende fase inzet.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{StateMachine.png}
-    \caption{State Machine diagram van de BLS-scenarioflow inclusief foutafhandeling.}
-    \label{fig:fsm_diagram}
+    \includegraphics[width=0.9\textwidth]{architecture.jpg}
+    \caption{Architectuur van de PoC (eigen ontwerp).}
+    \label{fig:architure}
 \end{figure}
 
 \section{Technisch ontwerp van de interactoren}
 
-Om een realistische trainingsomgeving te creëren, is de interactielaag ontworpen als een abstractielaag tussen de hardware-input van de Meta Quest 3 en de scenario-logica. Er is gekozen voor een architectuur die gebruikmaakt van specifieke interactors voor verschillende medische handelingen, waarbij de nadruk ligt op fysieke acuraatheid en haptische validatie.
+Om een realistische trainingsomgeving te creëren, is de interactielaag ontworpen als een abstractielaag tussen de hardware-input van de Meta Quest 3 en de scenario-logica. Er is gekozen voor een architectuur die gebruikmaakt van specifieke interactors voor verschillende medische handelingen, waarbij de nadruk ligt op fysieke accuraatheid en haptische validatie.
 
-\subsection{Gelaagde Interactor-hiërarchie}
+\subsection{Ruimtelijke logica en elektrodenvalidatie}
 
-Het systeem maakt gebruik van een hiërarchische structuur van interactoren uit de Meta XR Interaction SDK. Dit stelt de applicatie in staat om onderscheid te maken tussen een simpele aanraking en een bewuste medische handeling.
+Voor de interactie met de AED-elektroden is een bruikbaar plaatsingssysteem geïmplementeerd binnen de virtuele omgeving om te garanderen dat de student de elektroden op de voorgeschreven posities positioneert. De technische registratie van de elektrodenplaatsing verloopt via specifieke trigger-zones op de patiënt-mesh die corresponderen met de anatomische locaties voor de apex en het sternum. Elke elektrode is voorzien van een standaard Grab Interactor uit de Unity XR Interaction Toolkit waarmee het object kan worden opgepakt en bewogen.
 
-\begin{enumerate}
-    \item Physics-based Touch \& Poke: Voor handelingen zoals het controleren van de ademhaling of het bedienen van de AED-knoppen, wordt gebruikgemaakt van Poke Interactors met fysieke colliders op de vingertoppen van de hand-mesh. De actie wordt pas gevalideerd wanneer een Force Threshold wordt overschreden, wat voorkomt dat onbedoelde aanrakingen de simulatie beïnvloeden.
-    \item Velocity-based Shake Interactor: Voor de bewustzijnscontrole is een custom script ontwikkeld dat de lineaire velocity van de controllers of handen monitort. De ConsciousnessCheckState valideert de handeling pas als er binnen een tijdvenster van twee seconden minimaal drie bewegingsvectoren met een tegengestelde richting worden gedetecteerd binnen de Trigger Zone van de schouders.
-\end{enumerate}
+Wanneer een elektrode de vooraf gedefinieerde radius van de desbetreffende trigger-zone op de torso betreedt, registreert het systeem de fysieke aanwezigheid van het object. Bij een succesvolle plaatsing vuurt de interactielaag een event af naar de ScenarioController om te bevestigen dat de desbetreffende zone is geactiveerd. Zodra beide plaatsingsevents door de controller zijn opgevangen en gevalideerd, wordt deze stap binnen de scenarioflow als succesvol beschouwd en wordt de transitie naar de analysefase ingezet.
 
-\subsection{Spatial Anchoring en Snap Logic}
+Om het inherente gebrek aan fysieke tegendruk en tactiele sensaties bij standalone XR-simulaties op te vangen, maakt de applicatie gebruik van haptische feedback als een vorm van pseudo-haptiek. Bij het uitvoeren van reanimatiecompressies en bij specifieke interacties in de handelingflow stuurt de software op het moment van detectie een trilling naar de controllers van de Meta Quest 3. Deze directe impuls biedt de gebruiker een onmiddellijke fysieke bevestiging dat de handeling door de software-architectuur is geregistreerd, wat helpt om de cognitieve belasting tijdens de training te verlagen.
 
-Voor de interactie met de AED-elektroden is een Snap-to-Surface systeem geïmplementeerd. Dit systeem garandeert dat de student de elektroden op de juiste anatomische posities plaatst.
+\section{Functionele implementatie van de AED/CPR-scenarioflow}
 
-% VOEG HIER EEN DIAGRAM TOE:
-% Een technisch schema van een 'Snap Interactor' die een elektrode (Interactor) koppelt aan een Socket (Interactable) op de patiënt-mesh. 
-% Toon de variabelen: Radius, Angle Threshold en Snap Position.
+De scenarioflow in de actieve PoC is geconcentreerd binnen de AED\_CPR\_Module. Deze module vormt de directe technische vertaling van het klinische reanimatie-algoritme naar de opeenvolgende toestanden binnen de ScenarioController \cite{ERC2025BLS}. In plaats van een allesomvattende simulatie van de volledige Basic Life Support-procedure, richt deze implementatie zich specifiek op de kritieke technische en procedurele interacties rondom hartmassage en defibrillatie. De module loodst de gebruiker opeenvolgend door vier functionele fasen om een gestructureerd verloop te garanderen.
+
+Het scenario start met de assessmentfase waarin de student de eerste status van de patiënt beoordeelt en de interactie opstart. Hierna volgt de reanimatiefase waarin de feitelijke borstcompressies moeten worden uitgevoerd. Tijdens deze status analyseert de CPRInteractor continu de neerwaartse controllerbewegingen om te verifiëren of het tempo aansluit bij de gestelde marges. Wanneer aan de numerieke succesvoorwaarden van de reanimatiecyclus is voldaan, initieert het systeem automatisch de transitie naar de volgende fase.
+
+De daaropvolgende fase betreft de AED-setup waarin het virtuele AED-toestel actief wordt ingezet binnen de simulatie-logica. De student dient de elektroden uit de koffer te nemen en deze op de daarvoor voorziene trigger-zones op de patiënt-mesh te plaatsen. Zodra de plaatsingsevents succesvol zijn opgevangen door de ScenarioController, start de afrondende schokfase. Het virtuele apparaat voert hierbij een gesimuleerde hartritmeanalyse uit en geeft vervolgens via gesproken instructies en ruimtelijke audio de schokknop vrij, mits dit medisch geïndiceerd is \cite{ERC2025BLS, ILCOR2023Immersive}.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{AEDApply.jpg}
-    \caption{Systeemarchitectuur van de Snap Interactor-configuratie inclusief validatieparameters en resultaatbevestiging.}
-    \label{fig:AEDApply}
+    \includegraphics[width=0.9\textwidth]{ScenarioFlowState.jpg}
+    \caption{State transitie diagram in de AED\_CPR\_Module aangedreven door de ScenarioController (eigen ontwerp).}
+    \label{fig:flow_state}
 \end{figure}
 
-De technische validatie van de elektrodenplaatsing verloopt via de volgende logica:
-\begin{itemize}
-    \item De patiënt-mesh bevat twee Snap Sockets met unieke identifiers (bijv. Apex en Sternal).
-    \item Elke elektrode is voorzien van een Grab Interactor die, zodra deze binnen de Snap Radius van een socket komt, de lokale Transform van de elektrode overschrijft met de voorgedefinieerde waarden van de socket.
-    \item Bij een succesvolle 'snap' vuurt de SocketManager een OnElectrodePlaced event af naar de ScenarioManager, inclusief een booleaanse waarde die aangeeft of de elektrode op de juiste zijde is geplaatst.
-\end{itemize}
+\section{UX/UI}
 
-\subsection{Haptische Feedback en Hand-Tracking Remapping}
-Om het gebrek aan fysieke weerstand te compenseren, wordt haptische feedback gebruikt als pseudo-haptiek. Bij het uitvoeren van compressies of het schudden van het slachtoffer, stuurt de HapticManager een Vibration Waveform naar de controllers die varieert in intensiteit op basis van de diepte van de virtuele penetratie in de patiënt-mesh. Voor hand-tracking gebruikers wordt dit vertaald naar visuele vervorming van de virtuele handen (bijv. kleurverandering bij contact), om de cognitieve belasting te verlagen en de presence te verhogen.
+Voor de interface is gekozen voor een diegetisch ontwerp, wat betekent dat alle menu-elementen en feedbackonderdelen visueel zijn geïntegreerd in de virtuele wereld zelf. Er is bewust voor gekozen om geen platte gebruikersinterfaces aan de camera van de Meta Quest 3 te koppelen, aangezien dergelijke zwevende schermen de immersie verstoren en een bekende oorzaak zijn van simulator sickness \cite{Kennedy1993SSQ}. Informatie en statuswijzigingen verschijnen daardoor direct op de medische objecten, bijvoorbeeld via een subtiele visuele indicator op de behuizing van het AED-toestel.
 
-\section{Functionele implementatie van de reanimatie-logica}
-De scenarioflow in XR SkillSim vormt een directe technische vertaling van het klinische reanimatie-algoritme. De applicatie dwingt de gebruiker bij aanvang tot een actieve scan van de omgevingsveiligheid, waarbij de software controleert of het volledige gezichtsveld (Field of View) de relevante omgevingsfactoren heeft geregistreerd alvorens de interactie met het slachtoffer wordt vrijgegeven.
+Wanneer een student een procedurele fout maakt tijdens het scenario, zoals het aanhouden van een incorrect compressieritme, wordt de simulatie niet direct afgebroken. De applicatie registreert de afwijking en biedt de student de kans om de handeling binnen de actieve state te corrigeren, wat aansluit bij de onderwijskundige principes van deliberate practice \cite{Fowler2015VR}. Dit zorgt ervoor dat het systeem bruikbaar blijft als formatief leermiddel zonder de softwarematige flow te blokkeren.
 
-De fysieke interactie met de patiënt wordt gerealiseerd via een gelaagd systeem van interactors en interactables uit de Meta XR Interaction SDK. In plaats van eenvoudige Ray Interactors, wordt voor de bewustzijnscontrole gebruikgemaakt van Poke en Touch Interactors. Deze maken gebruik van virtuele physics-based hand-colliders, waardoor de student de schouders van het slachtoffer daadwerkelijk moet aanraken en met een specifieke bewegingsamplitude moet schudden. De applicatie registreert hierbij niet alleen de actie zelf, maar valideert via de versnellingsmeters van de controllers of hand-tracking data de intensiteit en de tijdsduur van de handeling, wat cruciaal is voor de medische accuraatheid van de procedure.
-
-Een kritiek onderdeel van de technische realisatie is de integratie van de Automated External Defibrillator. In tegenstelling tot statische simulaties fungeert het virtuele toestel als een actieve entiteit binnen de State Machine. Het ontwerp maakt gebruik van Grab Interactors met Physics Hands, waardoor het openen van de koffer en het uitpakken van de elektroden een realistische anatomische handgreep vereist. De software controleert de ruimtelijke positionering via Snap Interactors en Trigger Zones op de patiënt-mesh. De student moet de elektroden binnen een nauwe foutmarge op de torso plaatsen, waarbij de SDK de Pose Detection gebruikt om te verifiëren of de student de handelingen correct uitvoert. Beslissingsmomenten worden gesimuleerd door auditieve instructies waarbij de applicatie middels Spatial Audio de urgentie en positie van het toestel benadrukt \autocite{ERC2025BLS, ILCOR2023Immersive}.
-
-\section{UX/UI en Interactiedesign in XR}
-Voor de interface heb ik gekozen voor een diegetisch ontwerp. Dit betekent simpelweg dat alle menu-elementen en feedback echt onderdeel zijn van de virtuele wereld zelf. Ik heb er bewust voor gekozen om geen platte 2D-menu's aan de camera vast te plakken. Dat soort zwevende schermen verbreken de immersie en zijn vaak een grote boosdoener bij het ontstaan van simulator sickness \autocite{Kennedy1993SSQ}. In plaats daarvan verschijnt informatie nu direct op de objecten waar de student mee bezig is. Denk aan een subtiele gloed rondom de AED-elektroden of geluiden die je de juiste richting op sturen.
-
-De interactie is zo ontworpen dat de virtuele handelingen de fysieke bewegingen zo dicht mogelijk benaderen. Door de combinatie van hand-tracking en controllers met trillingen, haptische feedback, krijgt de gebruiker echt het gevoel aanwezig te zijn in de situatie terwijl de medische handelingen worden uitgevoerd. Als de student een fout maakt, wordt de simulatie niet meteen afgebroken. In plaats daarvan slaat de software dit op als een specifiek beslissingsmoment. De student krijgt dan direct feedback om van die fout te leren, wat aansluit bij het principe van deliberate practice \autocite{Fowler2015VR}. Op deze manier vormt het ontwerp een goede basis om de kwaliteit van het reanimatieproces achteraf objectief te kunnen beoordelen.
+De evaluatie en datacaptatie worden afgehandeld door een centrale EvaluationManager. Tijdens de simulatie registreert deze manager de unieke module-identifier, de totale verstreken sessietijd en de opgelopen fouten in de uitvoering. Deze samenvattende sessiegegevens worden lokaal persistent opgeslagen via PlayerPrefs. Parallel daarop registreert de LoggingManager gebeurtenisdata in een xAPI-geinspireerd Actor-Verb-Object-formaat en exporteert deze gegevens asynchroon naar een JSON-bestand in de persistente opslag van het toestel. Deze combinatie van lokale sessiesamenvatting en eventgebaseerde logging onderbouwt de technische haalbaarheid van objectieve en geautomatiseerde resultatenregistratie binnen het ontwikkelde platform.

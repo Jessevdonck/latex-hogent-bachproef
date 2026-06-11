@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{velocity}\PYG{p}{.}\PYG{n}{magnitude}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{minVelocity}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{velocity}\PYG{p}{.}\PYG{n}{y}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.5f}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{DetectCompression}\PYG{p}{();}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

@@ -1,28 +1,21 @@
 \chapter{Ontwikkeling}%
 \label{ch:ontwikkeling}
 
-In dit hoofdstuk wordt de technische realisatie van de applicatie beschreven, waarbij de conceptuele ontwerpen uit het voorgaande hoofdstuk worden vertaald naar een functionele Proof of Concept voor de Meta Quest 3. De ontwikkeling is uitgevoerd binnen de kaders van Design Science Research, waarbij de focus ligt op de creatie van een technologisch robuust instrument dat didactische waarde combineert met technische performantie \cite{Hevner2004, Peffers2007}.
+In dit hoofdstuk wordt de technische realisatie van de applicatie beschreven, waarbij de conceptuele ontwerpen uit het voorgaande hoofdstuk worden vertaald naar een functionele proof of concept (PoC) voor Meta Quest 3. De ontwikkeling is uitgevoerd binnen de kaders van Design Science Research, met focus op een technisch stabiel instrument dat didactische waarde combineert met performantie \cite{Hevner2004, Peffers2007}.
 
 \section{Technologische stack en ontwikkelomgeving}
 
-De XR SkillSim-applicatie is technisch gerealiseerd binnen de Unity-engine (versie 2022.3 LTS). De keuze voor een Long Term Support-versie is essentieel voor de stabiliteit van de Proof of Concept en garandeert compatibiliteit met de gebruikte Software Development Kits (SDK's) gedurende de gehele ontwikkelcyclus.
+De XR SkillSim-applicatie is technisch gerealiseerd binnen de Unity-engine (Unity 6). Voor interactie en platformabstractie wordt OpenXR gebruikt in combinatie met de Meta XR Core SDK, de Meta Interaction SDK en de Unity XR Interaction Toolkit.
 
-\subsection{Engine en Platform}
+\subsection{Engine en platform}
 
-Het project is gebouwd voor de Meta Quest 3, een standalone XR-headset die draait op een Android-gebaseerd besturingssysteem. De ontwikkeling is uitgevoerd binnen de OpenXR-standaard. Dit biedt een abstractielaag bovenop de hardware-specifieke API's, waardoor de applicatie gebruikmaakt van Action Maps voor input in plaats van directe hardware-mapping. Dit is een strategische keuze met het oog op de schaalbaarheid: hierdoor kan de software met minimale aanpassingen worden geport naar andere apparaten binnen de 'HOGENT XR Academy'.
+Het project draait op de Meta Quest 3, een standalone XR-headset met Android-gebaseerd besturingssysteem. Door OpenXR te gebruiken, blijft de inputlaag abstraheerbaar en overdraagbaar naar andere compatibele apparaten. Dit ondersteunt de schaalbaarheid binnen een onderwijscontext.
 
-Voor de interactielaag is de Meta XR All-in-One SDK geïntegreerd in combinatie met de Unity XR Interaction Toolkit. Deze stack biedt de nodige componenten voor zowel controller-gebaseerde interactie als hand-tracking, wat cruciaal is voor de medische accuraatheid van de simulatie.
+\subsection{Render pipeline en optimalisatie}
 
-\subsection{Render Pipeline en Optimalisatie}
+Voor mobiele XR-rendering werd Universal Render Pipeline (URP) gebruikt. Deze keuze verlaagt de render-overhead en ondersteunt performante stereo-weergave op standalone hardware.
 
-Vanwege de mobiele chipset (Snapdragon XR2 Gen 2) van de Meta Quest 3 is de Universal Render Pipeline ingezet. In tegenstelling tot de Built-in Render Pipeline maakt URP gebruik van een Single-pass Forward Renderer, wat de overhead op de CPU en GPU aanzienlijk vermindert.
-
-De volgende technische optimalisaties zijn toegepast om de performantie te waarborgen:
-\begin{itemize}
-    \item Single Pass Instanced Rendering: Hierbij wordt de volledige scène in één keer naar een double-wide render target geschreven, waardoor het aantal draw calls bijna wordt gehalveerd vergeleken met multi-pass rendering.
-    \item Foveated Rendering: Door gebruik te maken van de OVR Manager is Fixed Foveated Rendering geactiveerd. Dit verlaagt de resolutie van de pixels in de periferie van het gezichtsveld, waardoor rekenkracht vrijkomt voor de kern van de simulatie.
-    \item Batching: Statische objecten in de klinische omgeving zijn geconfigureerd voor Static Batching, terwijl voor dynamische objecten (zoals de AED-onderdelen) GPU Instancing wordt toegepast om de overhead van de render-pipeline te minimaliseren.
-\end{itemize}
+Concreet zijn drie optimalisaties toegepast. Ten eerste wordt Single Pass Instanced rendering gebruikt om stereorendering efficiënter uit te voeren. Ten tweede verlaagt Fixed Foveated Rendering via OVR Manager de GPU-belasting buiten de focuszone. Ten derde beperken batching-strategieën, met name static batching en instancing, het aantal draw calls.
 
 \begin{table}[htbp]
     \centering
@@ -36,199 +29,172 @@ De volgende technische optimalisaties zijn toegepast om de performantie te waarb
         Render Pipeline & Universal Render Pipeline (URP) \\ \hline
         Scripting Language & C\# 9.0 (.NET Standard 2.1) \\ \hline
         SDK's & Meta XR Core SDK, Interaction SDK, XR Interaction Toolkit \\ \hline
-        Serialization & Newtonsoft.Json (Json.NET) \\ \hline
+        Serialisatie & Newtonsoft.Json (Json.NET) \\ \hline
     \end{tabular}
     \caption{Overzicht van de technologische stack.}
 \end{table}
 
 \section{Architecturale implementatie van de simulatie-logica}
 
-De kern van XR SkillSim wordt gevormd door een robuuste logische laag die verantwoordelijk is voor het afdwingen van de medische protocollen. Om te vermijden dat de broncode vervalt in een onbeheersbare if-else-structuur, is gekozen voor een implementatie gebaseerd op het State Design Pattern.
+De kern van XR SkillSim wordt gevormd door een logische laag die het medisch protocol afdwingt via expliciete scenario-states. Deze keuze vermijdt een monolithische if-else-structuur en houdt de flow uitbreidbaar.
 
-\subsection{State Pattern in C\#: De ScenarioManager}
+Voor de feitelijke implementatie en verificatie in deze bachelorproef is de scope beperkt tot de scenes TrainingLobby en MedicalTrainingScene. Enkel scripts die in deze twee scenes actief gebruikt worden, vallen binnen de besproken ontwikkelings- en evaluatiescope.
 
-De ScenarioManager fungeert als een Singleton die de globale status van de simulatie beheert. De feitelijke logica van elke stap in het reanimatieproces is echter gedelegeerd naar specifieke State-objecten die de IScenarioState interface implementeren.
+\subsection{Modulaire opbouw in C\#: TrainingManager en ScenarioController}
+
+In de frameworklaag fungeert de TrainingManager als orchestrator van modules. Een module erft over van TrainingModuleBase en levert een lijst states aan de ScenarioController. Die controller activeert states sequentieel en evalueert IsCompleted om naar de volgende stap over te gaan.
 
 \begin{listing}[ht]
     \begin{minted}[frame=lines, framesep=2mm, baselinestretch=1.2, fontsize=\small]{csharp}
-        public interface IScenarioState 
+        public interface IScenarioState
         {
-            void EnterState(ScenarioManager manager);
-            void UpdateState(ScenarioManager manager);
-            void ExitState(ScenarioManager manager);
-            void HandleInteraction(InteractionEvent e);
+            string StateName { get; }
+            void Enter();
+            void Update();
+            void Exit();
+            bool IsCompleted { get; }
         }
     \end{minted}
-    \caption{De IScenarioState interface en de basisstructuur van de ScenarioManager.}
+    \caption{De IScenarioState interface zoals gebruikt door de ScenarioController.}
     \label{listing:scenario_state}
 \end{listing}
 
-Door deze interface te gebruiken, hoeft de ScenarioManager niet te weten welke specifieke fase van de reanimatie actief is. Hij roept simpelweg de methoden van de huidige status aan. Dit maakt het systeem uiterst flexibel. Het toevoegen van een nieuwe medische handeling vereist enkel het aanmaken van een nieuwe klasse die deze interface implementeert.
+Deze interface maakt de flow deterministisch en modulair. De controller kent enkel het contract, niet de concrete medische stapimplementatie.
 
-\subsection{Event-Driven communicatie en ontkoppeling}
+\subsection{Event-driven communicatie en ontkoppeling}
 
-Om de verschillende subsystemen zoals de UI, de audio-instructies en de datalogging gescheiden te houden van de scenario-logica, is een Event-Driven architectuur opgezet met behulp van C\# Actions. 
+Parallel aan de frameworklaag gebruikt de ScenarioSystem-laag een event-gedreven patroon met C\# Actions. ScenarioManager publiceert OnStateChanged, OnActionSuccess en OnActionFailed. Subsystemen zoals ScenarioUI en LoggingManager abonneren zich daarop, waardoor scenarioflow, feedback en logging losgekoppeld blijven.
 
-In plaats van dat de ScenarioManager direct verwijst naar de UIManager, vuurt hij globale events af zoals OnStateChanged of OnActionFailed. Subsystemen abonneren zich op deze events. Dit verhoogt de modulariteit aanzienlijk. De LoggingManager kan bijvoorbeeld alle events opvangen en opslaan zonder dat de ScenarioManager zich bewust hoeft te zijn van het bestaan van een log-systeem.
+\subsection{State-machineflow en transities}
 
-\subsection{De State Machine flow en transities}
+Een state roept ScenarioManager.TransitionTo(...) op wanneer haar overgangsvoorwaarde bereikt is. De transitielogica verloopt in vaste volgorde:
+eerst wordt ExitState() op de huidige state uitgevoerd, vervolgens wordt de volgende state als actieve state toegewezen, en daarna wordt EnterState() op die nieuwe state aangeroepen waarna OnStateChanged wordt gepubliceerd.
 
-De overgang tussen verschillende fasen van de reanimatie wordt technisch afgehandeld via een TransitionTo-methode in de ScenarioManager. 
-
-Wanneer aan de voorwaarden van een status is voldaan, bijvoorbeeld wanneer de student succesvol de hulpdiensten heeft gebeld, roept de actieve state deze methode aan. De TransitionTo-logica voert de volgende stappen asynchroon uit:
-\begin{enumerate}
-    \item De ExitState() methode van de huidige status wordt aangeroepen voor het opruimen van tijdelijke triggers of timers.
-    \item De nieuwe status wordt geïnstantieerd en toegewezen als de actieve status.
-    \item De EnterState() methode van de nieuwe status wordt uitgevoerd, waarbij events worden afgevuurd die de UI en audio-instructies voor de volgende stap initialiseren.
-\end{enumerate}
-
-Deze aanpak garandeert een deterministische flow van het scenario, waarbij de applicatie altijd in een bekende en gevalideerde status verkeert.
+Dit garandeert een reproduceerbare scenarioflow met expliciete toestandsovergangen.
 
 \section{Ontwikkeling van het interactiesysteem}
 
-De interactielaag vormt de brug tussen de hardware-sensoren van de Meta Quest 3 en de logische State Machine van de simulatie. In plaats van standaard componenten te gebruiken, zijn er specifieke interactoren ontwikkeld die voldoen aan de eisen van medische precisie.
+De interactielaag vertaalt XR-interacties naar domeinevents (InteractionEvent) die door de actieve state worden verwerkt. Hierdoor blijft inputverwerking uniform, ongeacht de bron (controller, button, triggerzone).
 
-\subsection{Custom Interactors: Velocity-based Shake Interactor}
+\subsection{Custom interactor: velocity-based CPRInteractor}
 
-Voor de bewustzijnscontrole is een eenvoudige aanraking onvoldoende om een medische handeling te valideren. Er is een custom script ontwikkeld dat de lineaire snelheid en versnelling van de controllers of hand-meshes monitort. De interactor definieert een volume rond de schouders van de patiënt. Zodra de handen van de gebruiker dit volume betreden, analyseert het script de bewegingsvectoren in real-time.
+Binnen de afgebakende scenescope wordt compressiedetectie uitgevoerd door CPRInteractor in MedicalTrainingScene. Deze component verwerkt controllerbewegingen, detecteert neerwaartse compressies op basis van snelheidsdrempels en evalueert vervolgens het ritme in compressions per minute (CPM).
 
-De handeling wordt pas als succesvol gemarkeerd wanneer er binnen een tijdvenster van twee seconden een opeenvolging van tegengestelde vectoren wordt gedetecteerd die een drempelwaarde van 1.5 m/s overschrijden. Dit simuleert het krachtig schudden van de schouders.
+In de huidige PoC-configuratie gelden een minimale bewegingssnelheid van 0.5 m/s, een neerwaartse drempel op de y-as en een ritmevenster van 80 tot 140 CPM.
 
 \begin{listing}[ht]
     \begin{minted}[frame=lines, framesep=2mm, baselinestretch=1.2, fontsize=\small]{csharp}
-    // Controleer of de beweging krachtig genoeg is
-    if (handVelocity.magnitude > velocityThreshold) {
-        if (Vector3.Dot(handVelocity.normalized, lastVelocityDir) < -0.5f) {
-            shakeCount++;
-            lastVelocityDir = handVelocity.normalized;
+    if (velocity.magnitude > minVelocity && velocity.y < -0.5f)
+    {
+        DetectCompression();
+    }
+    \end{minted}
+\caption{Kernlogica voor detectie van compressiebewegingen in CPRInteractor.}
+\label{listing:cpr_interactor}
+\end{listing}
+
+De daadwerkelijke ritmedetectie gebeurt in de methode DetectCompression(). Deze methode gebruikt een debounce-interval om dubbele metingen door kleine controllertrillingen te vermijden en berekent vervolgens het actuele tempo in CPM op basis van het tijdsverschil met de vorige geldige compressie.
+
+\begin{listing}[ht]
+    \begin{minted}[frame=lines, framesep=2mm, baselinestretch=1.2, fontsize=\small]{csharp}
+    private void DetectCompression()
+    {
+        float currentTime = Time.time;
+        float timeDiff = currentTime - _lastCompressionTime;
+
+        if (timeDiff > 0.3f)
+        {
+            _currentCPM = 60f / timeDiff;
+            _lastCompressionTime = currentTime;
+
+            OnCompressionDetected?.Invoke(_currentCPM);
+            EvaluateCompression(_currentCPM);
         }
     }
     \end{minted}
-\caption{Logica voor de detectie van de schudbeweging.}
-\label{listing:interaction_zones}
+\caption{Debounce en CPM-berekening in DetectCompression().}
+\label{listing:detect_compression}
 \end{listing}
 
-\subsection{Spatial Logic en Snap Zones: Sockets en Tags}
+Door na elke geldige compressie onmiddellijk EvaluateCompression() aan te roepen, kan de state machine in realtime feedback geven over ritme-afwijkingen en tegelijk de eventstroom voor logging en evaluatie behouden.
 
-Om medische objecten, zoals de AED-elektroden, te valideren, wordt gebruikgemaakt van een systeem van Sockets en Tags. Elke socket op de patiënt-mesh heeft een specifieke identifier die correspondeert met de anatomische locatie.
+\subsection{Spatial logic voor AED-validatie}
 
-De validatielogica is gebaseerd op drie parameters:
-\begin{itemize}
-    \item Tag-filtering: Alleen objecten met de juiste medische tag kunnen interageren met de socket.
-    \item Distance threshold: De elektrode snapt pas naar de torso wanneer deze binnen een straal van 5 cm van de socket komt.
-    \item Alignment check: Het systeem vergelijkt de rotatie-vector van de elektrode met de normaalvector van de patiënt-mesh om te garanderen dat de plakzijde correct naar het lichaam gericht is.
-\end{itemize}
+In AEDPlacementState wordt validatie uitgevoerd op basis van XRSocketInteractor-selecties en objecttagging. Beide vereiste sockets moeten gevuld zijn en de geselecteerde objecten moeten de tag Electrode dragen. Na dubbele validatie volgt transitie naar AEDAnalysisState.
 
-\subsection{Hand-tracking integratie: OVR Skeleton Mapping}
+Deze validatie is bewust eenvoudig gehouden voor runtime-stabiliteit in een proof of concept.
 
-Een grote uitdaging in de ontwikkeling was het mappen van de Oculus Virtual Reality Skeleton data naar de interactielaag. Hand-tracking levert een complexe hiërarchie van joints. Om dit bruikbaar te maken voor medische interacties, is een abstractielaag gebouwd die de ruwe data vertaalt naar stabiele interactiepunten.
+\subsection{Procedure-events voor CPR en veiligheidschecks}
 
-Er wordt een onzichtbare Interaction Hand gegenereerd die de posities van de Oculus Virtual Reality Skeleton volgt, maar de colliders vereenvoudigt tot geometrische vormen zoals capsules en spheres]. Voor handelingen zoals de ademhalingscontrole wordt gebruikgemaakt van Pose Detection. Hierbij controleert de software of de specifieke hoeken tussen de vingersegmenten overeenkomen met de vereiste handhouding om de kin omhoog te liften.
+Bijkomende scripts leveren domeinevents aan de state machine. PhoneButtonHandler genereert EmergencyCallStarted, ChestCompressionTrigger genereert ChestCompression met cooldownbeperking, en PatientTouchDetector genereert PatientTouched tijdens kritische AED-fases.
+
+Daarnaast monitort BreathingCheckState de afstand tussen camera en mondpositie. De instructietekst verwijst naar 10 seconden, maar in de huidige testconfiguratie staat de interne timer korter om ontwikkeliteraties te versnellen.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{Colliders.jpg}
-    \caption{Visualisatie van de technische interactiezones (Gizmos) en colliders op de patiënt-mesh in Unity.}
+    \caption{Visualisatie van interactiezones en colliders op de patiënt-mesh in Unity.}
     \label{fig:interaction_zones}
 \end{figure}
 
 \section{Realisatie van het dataloggingsysteem}
 
-Een cruciaal onderdeel van de ontwikkeling is het genereren van objectieve evaluatiegegevens, een behoefte die sterk naar voren komt in de literatuur over medische XR-training \autocite{Radianti2020VRHE, Kyaw2019VR}. Er is een gespecialiseerde LoggingManager ontwikkeld die volledig ontkoppeld is van de visuele representatie en zich uitsluitend richt op de data-integriteit.
+Een cruciaal onderdeel van de PoC is objectieve registratie van gebruikersgedrag. LoggingManager zet statewissels en actiefeedback om naar xAPI-geinspireerde statements.
 
-\subsection{xAPI-concept en Data-architectuur}
+\subsection{xAPI-concept en data-architectuur}
 
-Het loggingsysteem is architecturaal gebaseerd op de Experience API standaard. Dit stelt de applicatie in staat om elke gebruikersinteractie om te zetten in een gestructureerd Statement bestaande uit een Actor, Verb en Object. 
+De structuur bevat actor, verb, object, timestamp en optionele result-successinformatie. Typische verben in de huidige implementatie zijn initialized, completed en failed. Deze uniforme structuur laat latere analyse van volgorde en foutpatronen toe.
 
-In de praktijk vertaalt de LoggingManager binnenkomende events van de ScenarioManager naar deze statements. Elke interactie, beslissing en tijdsafhankelijke variabele wordt vastgelegd met een nauwkeurigheid tot op de milliseconde. Wanneer een student bijvoorbeeld de AED activeert, wordt dit gelogd als: Student\_01 (Actor) Pressed (Verb) AED\_PowerButton (Object). Deze gestructureerde aanpak is essentieel voor de latere validatie van de prestaties tegenover de medische protocollen.
+\subsection{JSON-serialisatie en persistentie}
 
-\subsection{JSON-serialisatie en Persistentie}
-
-Om de framerate op de Meta Quest 3 stabiel te houden en de CPU-belasting tijdens kritieke simulatiemomenten te minimaliseren, worden de verzamelde gegevens gedurende de sessie in een List<T> gebufferd in het werkgeheugen. Pas bij het beëindigen van het scenario wordt deze lijst geserialiseerd naar een JSON-bestandsstructuur met behulp van de Newtonsoft.Json bibliotheek.
+Statements worden tijdens de sessie in een lijst bewaard en bij applicatie-afsluiten asynchroon geserialiseerd met Newtonsoft.Json naar Application.persistentDataPath. Onderstaand voorbeeld toont een state-transitie-entry zoals die door de huidige LoggingManager wordt opgebouwd.
 
 \begin{listing}[ht]
     \begin{minted}[frame=lines, framesep=2mm, baselinestretch=1.2, fontsize=\small]{csharp}
     {
-        "timestamp": "2026-05-04T22:45:12.453Z",
-        "actor": "Student_01",
-        "verb": "Placed",
-        "object": "AED_Pad_Apex",
-        "result": {
-            "success": true,
-            "responseTime": 4.2
+        "actor": {
+            "name": "Trainee",
+            "mbox": "mailto:trainee@poc.com"
         },
-        "context": "AEDPreparationState"
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/initialized",
+            "display": {
+                "en-US": "Initialized"
+            }
+        },
+        "object": {
+            "id": "http://example.com/activities/IntroState",
+            "definition": {
+                "name": {
+                    "en-US": "Transitioned to IntroState"
+                }
+            }
+        },
+        "timestamp": "2026-05-04T22:45:12Z"
     }
     \end{minted}
-\caption{Voorbeeld geserialiseerd log-fragment.}
+\caption{Voorbeeld van een xAPI-geinspireerd log-fragment.}
 \label{listing:logging}
 \end{listing}
 
-Het wegschrijven van deze data gebeurt asynchroon naar het lokale bestandssysteem van de headset via de Application.persistentDataPath. Door deze datagedreven benadering is het mogelijk om patronen in fouten te herkennen en belangrijke prestatie-indicatoren, zoals de hands-on time of de pauzes tussen acties, op een objectieve manier te onderzoeken \autocite{Hung2024VR, Padilha2019VR}.
+Bij completed- en failed-events voegt de implementatie daarnaast optioneel een result-object toe met het veld success.
+
+Aanvullend registreert EvaluationManager per module de totale duur, foutenaantal en foutenlijst. Deze sessiehistoriek wordt lokaal opgeslagen via PlayerPrefs als JSON-wrapper.
 
 \section{Optimalisatie en technische uitdagingen}
 
-Gezien de hardwarematige beperkingen van een standalone headset zoals de Meta Quest 3, vormde de optimalisatie van de applicatie een substantieel onderdeel van het ontwikkelproces. Het doel was om een constante verversingssnelheid van 72 Hz te handhaven, aangezien fluctuaties in de framerate direct kunnen leiden tot simulator sickness \autocite{Kennedy1993SSQ}.
+Gezien de beperkingen van standalone XR-hardware moest een evenwicht gevonden worden tussen performantie en medische detailgraad. De gekozen implementatie prioriteert stabiele runtime en duidelijke stateflow.
 
-\subsection{Profiling en Debugging}
+\subsection{Profiling en debugging}
 
-Om prestatie-bottlenecks te identificeren, is er gebruikgemaakt van de Unity Profiler in combinatie met de Oculus Performance Metrics Tool. Tijdens de eerste testfases vertoonden de physics-berekeningen van de hand-colliders pieken in de CPU-belasting. Door middel van de profiler werd vastgesteld dat de FixedUpdate-cyclus overbelast raakte door een te hoog aantal actieve Mesh Colliders op de patiënt-torso.
+Met Unity Profiler en device-metrics zijn kritische paden geanalyseerd. In de huidige PoC zijn complexe berekeningen in runtime-lussen vermeden ten voordele van eenvoudige, controleerbare validatieregels.
 
-Deze bottleneck is technisch opgelost door:
-\begin{itemize}
-    \item De complexe mesh-colliders te vervangen door een samengesteld systeem van Primitive Colliders, wat de rekenlast voor de Physics Engine aanzienlijk verminderde.
-    \item Scripts die niet essentieel zijn voor de actieve status van de State Machine tijdelijk te deactiveren via de ScenarioManager, waardoor onnodige Update-aanroepen werden geëlimineerd.
-\end{itemize}
+Concreet gebeurt compressiedetectie via snelheidsdrempels en debouncing in plaats van via zware patroonclassificatie, wordt AED-validatie uitgevoerd via socketselectie en tagcontrole in plaats van continue geometrische uitlijning, en blijft de updateketen event-driven zodat subsystemen enkel reageren op relevante wijzigingen.
 
-\subsection{Beperkingen van Standalone XR: GPU-optimalisatie}
+\subsection{Beperkingen en technische schuld in de huidige PoC}
 
-De mobiele GPU van de Quest 3 stelt strikte limieten aan de polycount en het aantal draw calls. Om de visuele presentatie te optimaliseren zonder de stabiliteit in gevaar te brengen, zijn de volgende strategieën toegepast:
+De codebasis bevat expliciete indicatoren van vereenvoudiging die zinvol zijn in een PoC maar verdere uitwerking vereisen voor klinische nauwkeurigheid. In ChestCompressionTrigger zijn minDepth en minVelocity wel aanwezig, maar de dieptevalidatie is nog niet volledig geïmplementeerd. In AEDPlacementState is alignmentThreshold voorzien, terwijl de actieve check momenteel enkel tagvalidatie gebruikt. In BreathingCheckState bestaat bovendien een verschil tussen de klinische instructietekst en de interne testtimer.
 
-\begin{itemize}
-    \item Draw Call Reduction: Door gebruik te maken van Texture Atlasing zijn meerdere texturen van medische objecten samengevoegd in één enkele material, waardoor de GPU minder state changes hoeft uit te voeren.
-    \item LOD-systemen: Voor de medische omgeving is Level of Detail geïmplementeerd, waarbij de complexiteit van de meshes dynamisch wordt verlaagd op basis van de afstand tot de camera van de headset.
-    \item Shader Optimization: Er is uitsluitend gebruikgemaakt van de URP Lit en Simple Lit shaders, die specifiek zijn geoptimaliseerd voor mobiele architecturen en geen complexe real-time reflections vereisen.
-\end{itemize}
+Ondanks deze beperkingen levert de implementatie een stabiel en didactisch bruikbaar demonstratiesysteem op.
 
-Ondanks de technische uitdagingen met betrekking tot de afwezigheid van fysieke tegendruk en de beperkte rekenkracht, resulteerden deze optimalisaties in een stabiele leeromgeving die de procedurele nauwkeurigheid van de reanimatietraining waarborgt.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Technische aansturing van de simulatie-logica}
-De essentie van de applicatie wordt beheerd door een centrale State Machine die de voortgang van de Basic Life Support (BLS)-procedure monitort. Elke fase in het algoritme van de European Resuscitation Council wordt technisch beschreven als een specifieke status met de bijbehorende transitievoorwaarden \cite{ERC2025BLS}. Als een gebruiker een actie uitvoert, zoals het controleren van zijn bewustzijn, wordt dit door het interactiesysteem omgezet in een gebeurtenis die de State Machine voedt. Als de actie correct en binnen de vastgestelde tijd wordt uitgevoerd, zal er een overgang plaatsvinden naar de volgende fase van de simulatie.
-
-De interactie-logica maakt gebruik van 'interactors' en 'interactables' uit de Unity XR Interaction Toolkit \cite{UnityDocs}. Voor medische procedures die nauwkeurigheid vereisen, zoals het juiste plaatsen van AED-elektroden, zijn ruimtelijke triggers en collision detection toegepast. De applicatie monitort de coördinaten van de virtuele handen in relatie tot de anatomische referentiepunten op de torso van de patiënt. Deze technische validatie waarborgt dat de student de procedurele stappen niet alleen uitvoert, maar dit ook doet met de nodige precisie die nodig is in een klinische omgeving \cite{Pottle2019, Alaker2016VR}.
-
-\section{Implementatie van het dataloggingsysteem}
-Een essentieel onderdeel van de ontwikkeling is het opstellen van objectieve evaluatiegegevens, een behoefte die vaak wordt onderstreept in de literatuur over medische XR-training \cite{Radianti2020VRHE, Kyaw2019VR}. Er is een gespecialiseerde Logging Manager ingesteld die zich onafhankelijk van de visuele representatie richt. Elke interactie, beslissing en tijdelijke variabele wordt vastgelegd met een nauwkeurigheid die tot op de milliseconde reikt. Dit systeem hanteert conceptueel de richtlijnen van de Experience API , zodat leerervaringen op een gestructureerde manier kunnen worden opgeslagen en uitgewisseld. \cite{xAPIADL}
-
-Tijdens de sessie worden de verzamelde gegevens opgeslagen om de CPU-belasting te verlagen en na het einde van het scenario worden ze geserialiseerd naar een JSON-formaat. Deze aanpak stelt ons in staat om belangrijke prestatie-indicatoren, zoals de tijd tot de eerste schok of de pauzes tussen de acties, op een objectieve manier te onderzoeken. Deze datagedreven benadering levert een aanzienlijke voordelen op in vergelijking met conventionele observatietechnieken, omdat het mogelijk maakt om patronen in fouten te herkennen en de effectiviteit van de simulatie als leermiddel te bewijzen \cite{Hung2024VR, Padilha2019VR}.
-
-\section{Optimalisatie en technische beperkingen}
-Tijdens het ontwikkelingsproces zijn de unieke beperkingen van standalone XR-hardware in overweging genomen. Om een hoge mate van 'presence' te waarborgen zonder de cognitieve belasting negatief te beïnvloeden, is de visuele omgeving aangepast aan de principes van multimedia learning \cite{Mayer2009Multimedia, WitmerSinger1998}. Het verminderen van ingewikkelde schaduwen en het toepassen van geoptimaliseerde meshes garandeert dat de grafische processor genoeg capaciteit heeft voor de verwerking van de fysica en handtracking \cite{Slater2009PlaceIllusion}.
-
-Hoewel de huidige technologie nog beperkingen heeft met betrekking tot tactiele feedback, is er geprobeerd dit technisch te verhelpen met behulp van geavanceerde visuele en auditieve feedbackmechanismen. De compressies worden beïnvloed door een auditieve metronoom, terwijl de interactie met de AED wordt ondersteund door nauwkeurige gesproken instructies die de werking van het werkelijke apparaat nabootsen.\cite{ILCOR2023Immersive} Deze combinatie van technische en educatieve aspecten creëert een leeromgeving die, ondanks de hardwarematige beperkingen, een hoge mate van procedurele nauwkeurigheid garandeert (Fowler 2015VR, Shorey Ng2021VRSR).
+De evaluatie van validiteit, betrouwbaarheid en experimentele uitbouw wordt verder uitgewerkt in hoofdstuk \ref{ch:evaluatie}, zodat ontwikkeling en evaluatie methodologisch duidelijk gescheiden blijven.
